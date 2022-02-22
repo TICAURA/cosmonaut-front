@@ -1,0 +1,60 @@
+    <div class="row">
+
+
+        <div class="col-12 col-lg-12">
+            <div id="accordionFiltro">
+
+                <div>
+                    <div class="card">
+                        <div>
+                            <h5 class="mb-0">
+                                <button *ngIf="tamanio < 600" (click)="changeIconDown = !changeIconDown" style="width: 100%;" class="btn btn-link aparece-movil" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  <label class="titulo" style="    width: 80%;
+                float: left;
+                text-align: left;">RESULTADOS</label>
+
+                </button>
+                                <button *ngIf="tamanio >=600" class="btn btn-link aparece-desktop-inline-block">
+                  <label class="titulo">RESULTADOS</label>
+                </button>
+
+                            </h5>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row" style="margin: 10px;">
+        <div class="col-12 col-lg-12 text-right">
+            <button *ngIf="esRegistrar" type="button" class="btn btn-light button-outlet" (click)="verdetallePer(undefined)">
+        <i aria-hidden="true" class="icon_24agregar primary-bg"></i> Agregar percepción
+      </button>
+        </div>
+    </div>
+
+
+    <div id="vetanaprincipaltabla" class="row margen margen-tabla background-panel scrooll" style="position: relative;">
+        <app-tablapaginado [desglosar]="true" [arreglotablaDesglose]="arreglotablaDesgloseP" [datos]="arreglotablaPert" [editar]="esEditar" [cargando]="cargandoPer" (salida)="recibirTablaPercepcion($event)">
+        </app-tablapaginado>
+    </div>
+
+
+
+<br><br>
+
+    <div class="row" style="margin: 10px;">
+        <div class="col-12 col-lg-12 text-right">
+            <button *ngIf="esRegistrar" type="button" class="btn btn-light button-outlet" (click)="verdetalleDed(undefined)">
+        <i aria-hidden="true" class="icon_24agregar primary-bg"></i> Agregar deducción
+      </button>
+        </div>
+    </div>
+    <div id="vetanaprincipaltabla" class="row margen margen-tabla background-panel scrooll" style="position: relative;">
+        <app-tablapaginado [desglosar]="true" [arreglotablaDesglose]="arreglotablaDesgloseD" [datos]="arreglotablaDedt" [editar]="esEditar" [cargando]="cargandoDed" (salida)="recibirTablaDeduccion($event)">
+        </app-tablapaginado>
+    </div>

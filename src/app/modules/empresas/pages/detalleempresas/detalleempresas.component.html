@@ -1,0 +1,64 @@
+
+<div class="row titulosfijos margen">
+    <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
+        <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa float-left"><button disabled>
+            <img src="assets/imgs/menu.png" alt="" srcset="">
+        </button>
+        </div>  
+        <li class="float-left"><a routerLinkActive="active"  routerLink="/inicio" class="nav-link" data-toggle="tab"  role="tab" 
+            > {{modulo}}</a>
+        </li>
+        <li class="float-left">
+            <a routerLinkActive="active" class="nav-link" data-toggle="tab"  role="tab" 
+            (click)="cancelar()" >{{subModulo}}</a>
+        </li>
+        <li style="padding-top: 10PX;" class="float-left">
+            {{titulo}}
+        </li>
+    </ul> 
+  </div>  
+  
+<div class="background-ajustar" appTamanioVentana [pixeles]="100">  
+<ul class="nav nav-tabs" id="" role="tablist"  id="navegadorTabs">
+    <li class="nav-item " style="margin-top: 0%;">
+        <a routerLinkActive="active" class="nav-link" id="bajaid" data-toggle="tab"  role="tab" aria-controls="profile"
+        routerLink="representantelegal"    >Representante legal</a>
+    </li>
+    <li class="nav-item">
+        <a routerLinkActive="active" class="nav-link" id="bajaid" data-toggle="tab" href="#baja" role="tab" aria-controls="profile"
+        routerLink="apoderadoLegal"    >Apoderado legal</a>
+    </li>
+    <li class="nav-item">
+        <a routerLinkActive="active" class="nav-link" id="bajaid" data-toggle="tab" href="#baja" role="tab" aria-controls="profile"
+             routerLink="contactosrrh">Contactos RRHH</a>
+    </li>
+    <li class="nav-item" >
+        <a routerLinkActive="active" class="nav-link" id="bajaid" data-toggle="tab" href="#baja" role="tab" aria-controls="profile"
+             routerLink="cuentasbancarias">Cuentas bancarias</a>
+    </li>
+    <li class="nav-item" >
+        <a routerLinkActive="active" class="nav-link" id="bajaid" data-toggle="tab" href="#baja" role="tab" aria-controls="profile"
+        routerLink="area">Áreas y puestos</a>
+    </li>
+    <li class="nav-item">
+        <a routerLinkActive="active" class="nav-link" id="bajaid" data-toggle="tab" href="#baja" role="tab" aria-controls="profile"
+        routerLink="politicas">Administración políticas</a>
+    </li>
+    <li class="nav-item">
+        <a routerLinkActive="active" routerLink="gruposnomina"  class="nav-link" >Grupos de nómina</a>
+    </li>
+    <li class="nav-item" >
+        <a routerLinkActive="active" routerLink="jornadalaboral"  class="nav-link" >Jornada laboral</a>
+    </li>
+    <li class="nav-item">
+        <a routerLinkActive="active" routerLink="conceptos"  class="nav-link" >Percepciones y deducciones</a>
+    </li>
+    <li class="nav-item">
+        <a routerLinkActive="active" routerLink="tablavalores"  class="nav-link" >Tablas y valores</a>
+    </li>
+    
+</ul>
+
+    <router-outlet></router-outlet>
+
+</div>

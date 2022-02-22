@@ -1,0 +1,112 @@
+    <div class="margen">
+        <div id="accordionFiltro">
+
+            <div >
+                <div class="card">
+                    <div>
+                        <h5 class="mb-4">
+                            <button *ngIf="tamanio < 600" style="width: 100%;" class="btn aparece-movil" aria-expanded="true">
+                                <label class="titulo" style="width: 80%; float: left; text-align: left;">BÚSQUEDA</label>
+                            </button>
+                            <button *ngIf="tamanio >=600" class="btn aparece-desktop-inline-block">
+                                <label class="titulo">BÚSQUEDA</label>
+                            </button>
+
+                        </h5>
+                    </div>
+                    <br>
+                    <div id="collapseOne" style="    margin: -36px;" class="collapse" [ngClass]="{'show':tamanio >600}" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                            <div class="form group row margen">
+                                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
+                                    <input type="text" [(ngModel)]="nombre" id="nombreNomS" class="form-control" placeholder="Nombre grupo de nómina">
+                                </div>
+                                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
+                                    <select [(ngModel)]="periodonomina" id="periodonominaS" class="form-control">
+                    <option id="periodonomina0S" value="" checked>Período de nómina</option>
+                    <option id="periodonominaIDS" *ngFor="let item of arregloperiodo" [value]="item.periodicidadPagoId">{{item.descripcion}}
+                    </option>
+                  </select>
+                                </div>
+                                <div class=" input-group-sm mb-3 text-center col-12 col-sm-2 ">
+                                    <button type="button" id="btnFiltrarGrupNomina" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <div class="col-9">
+        <div *ngIf="aparecemodalito" [style.top]="scrolly" style="z-index: 4;" class="ventanaemergente" [style.width]="modalWidth">
+            <div class="adentro">
+                <button (click)="aparecemodalito = false" type="button" class="close btnclosemodal" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                <div class="header">
+                    <h5 class="titulo">GRUPO DE NÓMINA</h5>
+
+                </div>
+                <hr>
+                <div class="body">
+
+
+                    <div *ngIf="cargandodetallegrupo" class="col text-center mb-5">
+                        <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
+                    </div>
+
+                    <div *ngIf="!cargandodetallegrupo">
+                        <!-- <h7 class="titulo text-right" >Empleados: {{countEmp}}</h7> -->
+                        <table aria-hidden="true" class="table m-3 table-hober table-sm " style="width: 90%;">
+                            <thead>
+                                <tr>
+                                    <th id="" class="text-center" scope="col">Nombre de empleado</th>
+                                    <th id="" class="text-center" scope="col">Número de empleado</th>
+                                    <th id="" class="text-center" scope="col">Empresa</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of arreglodetalle">
+
+                                    <td>{{item.personaId.nombre}} {{item.personaId.apellidoPaterno}} {{item.personaId.apellidoMaterno}}
+                                    </td>
+                                    <td class="text-center">{{item.numEmpleado}}</td>
+                                    <td>{{item.centrocClienteId.razonSocial}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <hr>
+                <div class="footer">
+                    <div class="row">
+                        <div class="col-12 text-center"><button (click)="aparecemodalito = false" type="submit" class="btn btn-primary button-fill agrandarloading">Cerrar</button></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row margen">
+        <div class="col titulo">
+            <label>RESULTADOS</label>
+        </div>
+        <div class="row" style="  margin-top: 10px;  width: 100%;">
+            <div class="col text-right">
+                <button *ngIf="esRegistrar" type="button" class="btn btn-light button-outlet" (click)="verdetalle(undefined)">
+              <i aria-hidden="true" class="icon_24agregar primary-bg"></i> Agregar grupo de nómina
+            </button>
+            </div>
+        </div>
+    </div>
+    <div id="vetanaprincipaltabla" class="row margen margen-tabla background-panel scrooll" style="position: relative;">
+        <app-tablapaginado [datos]="arreglotabla" [arreglotablaDesglose]="arreglotablaDesglose" [editar]="esEditar" [eliminar]="esEliminar" [desglosar]="true" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
+    </div>

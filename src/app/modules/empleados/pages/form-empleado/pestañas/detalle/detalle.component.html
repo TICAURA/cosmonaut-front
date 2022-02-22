@@ -1,0 +1,62 @@
+<form [formGroup]="myForm" (ngSubmit)="enviarFormulario()">
+    <div class="form-group mt-3 row margen"><label class="titulo">DETALLE DE LA CUENTA</label></div>
+    <div class="row">
+        <div class="col-10">
+            <div class="form group row  margen">
+
+                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                    <label>Método de pago</label>
+                    <input placement="top" [mdbTooltip]="'metodoPago' | tooltip" [value]="datosPersona?.metodopago?.descripcion" disabled type="text" class="form-control" placeholder="">
+                </div>
+                <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                    <label>Cuenta CLABE *</label>
+                    <input appSolonumeros placement="top" [mdbTooltip]="'clabe' | tooltip" #clabe (focusout)="validarBanco(clabe.value)" maxlength="18" formControlName="clabe" type="text" class="form-control" value="" 
+                    [ngClass]="{'is-invalid':(submitEnviado && f.clabe.errors?.required) || (f.clabe.errors?.pattern && f.clabe.touched)}"
+                        placeholder="">
+                    <div *ngIf="submitEnviado && f.clabe.errors?.required" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+                    <div *ngIf="f.clabe.errors?.pattern && f.clabe.touched" class="invalid-feedback">
+                        La CLABE no es válida
+                    </div>
+                </div>
+                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                    <label>Número de cuenta *</label>
+                    <input appSolonumeros maxlength="10" formControlName="numeroCuenta" type="text" class="form-control disabled bg-light" placeholder="" [ngClass]="{'is-invalid':f.numeroCuenta.errors && submitEnviado}">
+                    <div *ngIf="f.numeroCuenta.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+
+                </div>
+                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                    <label>Banco *</label>
+                    <select [ngClass]="{'is-invalid':f.csBanco.errors && submitEnviado}" formControlName="csBanco" class="form-control disabled bg-light" name="">
+                    <option *ngFor="let item of arreglobancos" [value]="item.bancoId">{{item.nombreCorto}}</option>
+                </select>
+                    <div *ngIf="f.csBanco.errors && submitEnviado" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+
+
+                </div>
+                <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                    <label>Número de ID cliente </label>
+                    <input placement="top" maxlength="20" [mdbTooltip]="'idCliente' | tooltip" appSolonumeros formControlName="numInformacion" type="text" class="form-control" placeholder="">
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-12">
+            <div class="text-right margin" style="margin-bottom: 20px;">
+
+                <button (click)="cancelar()" type="button" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+                <button type="submit" class="btn btn-primary button-fill">Guardar</button>
+            </div>
+        </div>
+    </div>
+</form>

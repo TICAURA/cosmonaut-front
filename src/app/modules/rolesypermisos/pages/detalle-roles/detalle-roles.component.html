@@ -1,0 +1,107 @@
+<div class="row margen">
+    <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
+        <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa float-left"><button disabled>
+            <img src="assets/imgs/menu.png" alt="" srcset="">
+        </button>
+        </div>  
+        <li class="float-left"><a routerLinkActive="active"  routerLink="/inicio" class="nav-link" data-toggle="tab"  role="tab" 
+            > {{modulo}}</a>
+        </li>
+        <li class="float-left">
+            <a routerLinkActive="active" class="nav-link" data-toggle="tab"  role="tab" 
+            (click)="cancelar()">{{subModulo}}</a>
+        </li>
+        <li style="padding-top: 10PX;" class="float-left">
+            ROLES
+        </li>
+    </ul> 
+</div>
+
+
+<hr>
+
+<form [formGroup]="myForm" class="form-desing" (ngSubmit)="enviarPeticion()">
+    <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="190">
+        <div class="form-group row margen mt-3"><label class="titulo">ADMINISTRACIÓN DE ROLES</label></div>
+        <div class="form-group row margen">
+
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Nombre del rol *</label>
+                <input [class.is-invalid]="f.nombre.errors && f.nombre.touched" formControlName="nombre" type="text" class="form-control">
+                <div class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+            <div class=" input-group-sm mb-3 col-12 col-sm-12 col-lg-12">
+                <label>Favor de seleccionar para elegir permisos</label>
+
+            </div>
+            <div *ngIf="mostrarEstatus" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Estatus</label>
+                <select name="" class="form-control" formControlName="esActivo">
+                    <option value="true">Activo</option>
+                    <option value="false">Inactivo</option>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="row mr-2 ml-2">
+            <div class="col-12">
+                <div *ngIf="cargando" class="col text-center mb-5">
+                    <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
+                </div>
+                <div *ngIf="!cargando" id="accordion" class="acordion_desplegable">
+                    <div *ngFor="let item of arreglo;let indice = index " [class.ocultar]="!item.mostrar" class="card" >
+                        <div  class="card-header" id="detallepago">
+
+                            <h5 class="mb-0">
+                                <label (click)="desplegar(indice)"  style="top: 8px;" class="contenedorInputCheckRadio">
+                                    <input [ngModelOptions]="{standalone: true}" [(ngModel)]="item.checked"  type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <button type="button" style="margin-left: 10px;" (click)="cambiarStatus(indice)" class="btn btn-link"  aria-controls="detallepago">
+
+                                    {{item.nombreModulo}}
+                                </button>
+                            </h5>
+                        </div>
+
+                        <div id="detallepagocolapsar" *ngIf="item.checked" class="collapse" [class.show]="item.seleccionado"  aria-labelledby="detallepago" data-parent="#accordion">
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <div class="col-4" *ngFor="let auxitem of item.submodulos;let indice2 = index;" [class.ocultar]="!auxitem.mostrar">
+                                        <label style="top: 15px;font-size: 100%;color:rgb(95, 95, 95)" class="contenedorInputCheckRadio">{{auxitem.nombreSubmodulo}}
+                                            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="auxitem.checked"   type="checkbox">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <ul *ngIf="auxitem.checked">
+                                            <li *ngFor="let permiso of auxitem.permisos;let indice3 = index;" [class.ocultar]="!permiso.mostrar"> <label style="top: 8px;" class="contenedorInputCheckRadio"> {{permiso.descripcion}}
+                                                    <input  [ngModelOptions]="{standalone: true}" [(ngModel)]="permiso.checked" type="checkbox">
+                                                    <span class="checkmark"></span>
+                                                </label> </li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+    <div class="text-center margin" style="margin-bottom: 20px;">
+
+        <button (click)="cancelar()" type="button" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+        <button type="submit" class="btn btn-primary button-fill">Guardar</button>
+    </div>
+
+</form>

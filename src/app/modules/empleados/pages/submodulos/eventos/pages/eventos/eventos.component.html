@@ -1,0 +1,110 @@
+<div class="row">
+    <div class="col-12 col-lg-12 col-xl-7 mb-3 mt-3 ">
+        <div class="row"><label class="titulo">INFORMACIÓN DE EVENTOS REGISTRADOS AL EMPLEADO</label></div>
+        <div class="row">
+            <article class="titulo mr-1 col">
+                VACACIONES
+            </article>
+
+        </div>
+        <div class="row mb-4">
+            <article class="titulo  col">
+                Días utilizados
+                <article>{{informacion.vacacionesUsadas}}</article>
+            </article>
+            <article class="titulo   col">
+                Días disponibles
+                <article>{{informacion.vacacionesDisponibles}}</article>
+            </article>
+
+        </div>
+
+        <div class="row">
+            <article class="titulo mr-1 col">
+                INCAPACIDADES
+            </article>
+
+        </div>
+        <div class="row mb-4">
+            <article class="titulo  col">
+                Días utilizados
+                <article>{{informacion.incapacidadesUsadas}}</article>
+            </article>
+
+
+        </div>
+
+
+        <div class="row">
+            <article class="titulo mr-1 col">
+                DÍAS ECONÓMICOS
+            </article>
+
+        </div>
+        <div class="row mb-4">
+            <article class="titulo  col">
+                Días utilizados
+                <article>{{informacion.economicosUsados}}</article>
+            </article>
+
+            <article class="titulo   col">
+                Días disponibles
+                <article>{{informacion.economicosDisponibles}}</article>
+            </article>
+
+
+        </div>
+    </div>
+    <div class="col-12 col-lg-12 col-xl-5 mb-3 mt-3 ">
+        <div class="row"><label class="titulo">DETALLE DE LA POLÍTICA DEL EMPLEADO</label></div>
+        <div class="row ">
+            <article class="titulo mr-1 col-10">
+                El empleado está asociado a la política
+                {{informacion.nombrePolitica}} , que contiene los siguientes beneficios:
+            </article>
+
+        </div>
+        <br>
+        <div class="row mb-4">
+            <article class="titulo  col">
+                Descuento proporción séptimo día
+                <article>{{informacion.descuentoSeptimoDia | boolean}}</article>
+            </article>
+            <article class="titulo   col">
+                Días económicos
+                <article>{{informacion.diasEconomicos}}</article>
+            </article>
+        </div>
+        <div class="row mb-4">
+            <article class="titulo  col">
+                Se descuentan incapacidades
+                <article>{{informacion.descuentoIncapacidad | boolean}}</article>
+            </article>
+            <article class="titulo   col">
+                Días de vacaciones
+                <article>{{informacion.diasVacaciones}}</article>
+            </article>
+        </div>
+        <div class="row mb-4">
+            <article class="titulo  col">
+                Se descuentan faltas
+                <article>{{informacion.descuentoFalta | boolean}}</article>
+            </article>
+            <article class="titulo   col">
+                Prima vacacional
+                <article>{{informacion.primaVacacional }}</article>
+            </article>
+        </div>
+        <div class="row mb-4">
+            <article class="titulo  col">
+                Prima vacacional al aniversario
+                <article>{{informacion.primaVacacionalAniversario | boolean}}</article>
+            </article>
+            <article class="titulo   col">
+                Días de Aguinaldo
+                <article>{{informacion.diasAguinaldo}}</article>
+            </article>
+        </div>
+
+    </div>
+</div>

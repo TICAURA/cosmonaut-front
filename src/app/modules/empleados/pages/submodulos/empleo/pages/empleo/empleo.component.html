@@ -1,0 +1,306 @@
+<form [formGroup]="myForm" (ngSubmit)="enviarFormulario()">
+    <div class="row">
+        <div class="col-12">
+            <div class="row"><label class="titulo">DETALLE DE EMPLEO</label><i aria-hidden="true" *ngIf="!editarcampos && !esKiosko" class="icon_24editar primary-bg" (click)="editarcampos = true;" style="width: 10%;text-align: right; cursor: pointer;"></i></div>
+
+            <div class="row mb-4">
+                <article class="titulo  col">
+                    Número Empleado <span *ngIf="editarcampos">*</span>
+                    <article *ngIf="!editarcampos">{{empleado.numEmpleado}}</article>
+                    <article *ngIf="editarcampos">
+
+                        <input maxlength="24" type="text" name="" id="" autocomplete="off" class="form-control" formControlName="numEmpleado" [ngClass]="{'is-invalid':f.numEmpleado.errors && f.numEmpleado.touched}">
+                        <div class="invalid-feedback">
+                            Campo requerido
+                        </div>
+
+                    </article>
+                </article>
+                <article class="titulo  col">
+                    Área <span *ngIf="editarcampos">*</span>
+                    <article *ngIf="!editarcampos">{{empleado.areaId?.descripcion}}</article>
+                    <article *ngIf="editarcampos">
+                        <select (change)="cambiaArea()" formControlName="areaId" name="" class="form-control" [ngClass]="{'is-invalid':f.areaId.errors && f.areaId.touched}">
+                            <option *ngFor="let item of arregloArea" [value]="item.areaId">{{item.descripcion}}</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Campo requerido
+                        </div>
+                    </article>
+                </article>
+                <article class="titulo  col">
+                    Puesto <span *ngIf="editarcampos">*</span>
+                    <article *ngIf="!editarcampos">{{empleado.puestoId?.descripcion}}</article>
+                    <article *ngIf="editarcampos">
+
+                        <select formControlName="puestoId" name="" class="form-control" [ngClass]="{'is-invalid':f.puestoId.errors && f.puestoId.touched}">
+                            <option *ngFor="let item of arregloPuestos" [value]="item.puestoId">{{item.descripcion}}
+                            </option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Campo requerido
+                        </div>
+                    </article>
+                </article>
+
+            </div>
+
+            <div class="row mb-4">
+                <article class="titulo  col">
+                    Jefe inmediato
+                    <article *ngIf="!editarcampos">{{empleado.jefeInmediatoId?.nombre}} {{empleado.jefeInmediatoId?.apellidoPaterno}} {{empleado.jefeInmediatoId?.apellidoMaterno}}</article>
+                    <article *ngIf="editarcampos">
+
+                        <input autocomplete="off" list="empleadosreporta" class="form-control" cache formControlName="puesto_id_reporta" (focusout)="salirReportaA()" name="browser" id="browser">
+
+                        <datalist id="empleadosreporta">
+                            <option *ngFor="let item of arregloempleadosreporta" [value]="item.personaId.nombre+' '+item.personaId.apellidoPaterno+' '+((item.personaId?.apellidoMaterno == undefined)?'':item.personaId?.apellidoMaterno)"></option>
+                        </datalist>
+
+                    </article>
+                </article>
+                <article class="titulo  col">
+                    Sede
+                    <article *ngIf="!editarcampos">{{empleado.sedeId?.descripcion}}</article>
+                    <article *ngIf="editarcampos">
+
+                        <select formControlName="sedeId" name="" class="form-control">
+                            <option value="">Seleccionar sede</option>
+                            <option *ngFor="let item of arregloSedes" [value]="item.sedeId">{{item.sedeNombre}}
+                            </option>
+                        </select>
+
+                    </article>
+                </article>
+                <article class="titulo  col">
+                    Entidad federativa <span *ngIf="editarcampos">*</span>
+                    <article *ngIf="!editarcampos">{{empleado.estadoId?.estado}}</article>
+                    <article *ngIf="editarcampos">
+                        <select formControlName="estadoId" name="" class="form-control" [ngClass]="{'is-invalid':f.estadoId.errors && f.estadoId.touched}">
+                            <option *ngFor="let item of arregloEstados" [value]="item.estadoId">{{item.estado}}</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Campo requerido
+                        </div>
+
+                    </article>
+                </article>
+            </div>
+            <hr>
+            <div class="row mb-4">
+                <article class="titulo col-4">
+                    Tipo de contrato <span *ngIf="editarcampos">*</span>
+                    <article *ngIf="!editarcampos" >{{contratoDesc}}</article>
+
+                    <article *ngIf="editarcampos">
+                        <select  [ngClass]="{'is-invalid':f.tipoContratoId.errors && f.tipoContratoId.touched}" formControlName="tipoContratoId" name="" id="" class="form-control">
+                        <option *ngFor="let item of arregloTipoContrato" [value]="item.tipoContratoId">
+                            {{item.descripcion}}</option>
+                        </select>
+                        <div  class="invalid-feedback">
+                            Campo requerido
+                        </div>
+
+                    </article>
+                </article>    
+
+                <article class="titulo col-8">
+                        Régimen de contratación <span *ngIf="editarcampos">*</span>
+                        <article *ngIf="!editarcampos">{{ empleado.tipoRegimenContratacionId?.descripcion}}</article>
+
+                    <article *ngIf="editarcampos">
+                        <select [ngClass]="{'is-invalid':f.tipoRegimenContratacionId.errors && f.tipoRegimenContratacionId.touched}" formControlName="tipoRegimenContratacionId" name="" id="" class="form-control">
+                            <option *ngFor="let item of arregloRegimenContratacion"
+                                [value]="item.tipoRegimenContratacionId">{{item.descripcion}}</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Campo requerido
+                        </div>
+
+                    </article>
+                </article>    
+
+       
+            </div>
+            <div class="row mt-4">
+                <article class="titulo col">
+                    Dias de vacaciones no disfrutados 
+                    <article *ngIf="!editarcampos">{{ empleado.diasVacaciones}}</article>
+                    <article *ngIf="editarcampos">
+                            <input placement="top" [mdbTooltip]="'diasVacaciones' | tooltip" appSolonumeros formControlName="dias_vacaciones" type="text" name="" id="" class="form-control">
+                    </article> 
+                </article> 
+                <article class="titulo col">
+                    Políticas <span *ngIf="editarcampos">*</span>
+                    <article *ngIf="!editarcampos">
+                        {{empleado.politicaId?.nombre}}
+                    </article>
+                    <article *ngIf="editarcampos">
+                        <select formControlName="politicaId" name="" class="form-control" [ngClass]="{'is-invalid':f.politicaId.errors && f.politicaId.touched}">
+                            <option *ngFor="let item of arregloPoliticas" [value]="item.politicaId">{{item.nombre}}
+                            </option>
+                        </select>
+                        <div  class="invalid-feedback">
+                            Campo requerido
+                        </div>
+                    </article>
+                </article>
+                <article class="titulo col">
+                    Jornada <span *ngIf="editarcampos">*</span>
+                    <article *ngIf="!editarcampos">
+                        {{empleado.jornadaId?.nombre}}
+                    </article>
+                    <article *ngIf="editarcampos">
+                        <select [ngClass]="{'is-invalid':f.jornadaId.errors && f.jornadaId.touched}" formControlName="jornadaId" name="" class="form-control">
+                            <option *ngFor="let item of arregloJornadas" [value]="item.jornadaId">{{item.nombre}}
+                            </option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Campo requerido
+                        </div>
+                    </article>
+                </article>
+
+            </div>
+            <hr>
+            <div class="row mb-4">
+                <article class="titulo col">
+                    Fecha de Antigüedad <span *ngIf="editarcampos">*</span>
+
+                
+                <article *ngIf="editarcampos" style="color: #7C7C7C;">
+                    Elegir fecha
+                    <article>
+                        <input [max]="f.fechaInicio.value" #fechaAntiguedad (focusout)="validarfechAntiguedad(fechaAntiguedad.value)"  [ngClass]="{'is-invalid':f.fechaAntiguedad.errors && f.fechaAntiguedad.touched}" formControlName="fechaAntiguedad" type="date" name="" class="form-control">
+                        <div  class="invalid-feedback">
+                            Campo requerido
+                        </div>
+
+                    </article> 
+                
+                </article>
+
+                <article *ngIf="!editarcampos">
+                    {{ empleado.fechaAntiguedad | date:'dd' }} {{ empleado.fechaAntiguedad | date:'MMMM' }} {{ empleado.fechaAntiguedad | date:'yyyy' }}
+                </article>
+            </article>
+
+            <article class="titulo col">
+                Fecha de ingreso <span *ngIf="editarcampos">*</span>
+
+                    <article *ngIf="editarcampos" style="color: #7C7C7C;">
+                        Elegir fecha
+                        <article>
+                            <input #fechaInicioCont (focusout)="validarfechaInicioCont(fechaInicioCont.value)" [ngClass]="{'is-invalid':f.fechaInicio.errors && f.fechaInicio.touched}" formControlName="fechaInicio" type="date" name="" class="form-control">
+                            <div  class="invalid-feedback">
+                                Campo requerido
+                            </div>
+                        </article>
+                    </article>            
+                    
+                    <article *ngIf="!editarcampos" >
+                            {{empleado.fechaContrato | date:'dd'}} {{empleado.fechaContrato | date:'MMMM'}} {{empleado.fechaContrato | date:'yyyy'}}
+
+                    </article>
+
+                </article>
+                <article class="titulo col">
+                    Fecha de IMSS
+
+                <article *ngIf="editarcampos" style="color: #7C7C7C;" >
+                    Elegir fecha
+                    <article>
+                        <input [min]="f.fechaAntiguedad.value" (focusout)="validarFechaImss()" [ngClass]="{'is-invalid':f.fechaAltaImss.errors && f.fechaAltaImss.touched}" formControlName="fechaAltaImss" type="date" name="" class="form-control">
+                        <div class="invalid-feedback">
+                            Campo requerido
+                        </div>
+                    </article>
+                </article>
+                <article *ngIf="!editarcampos">
+                        {{empleado.fechaAltaImss | date:'dd'}} {{empleado.fechaAltaImss | date:'MMMM'}} {{empleado.fechaAltaImss | date:'yyyy'}}
+                </article>
+            </article>    
+                  
+            </div>
+            <div class="row mb-4">
+                
+                <article class="titulo col">
+                    Sindicalizado
+                    <article *ngIf="!editarcampos">
+                        {{empleado.esSindicalizado ? "Si":"No"}}
+                    </article>
+                    <article *ngIf="editarcampos">
+                        <div>
+                            <label class="contenedorInputCheckRadio">Si
+                                <input formControlName="esSindicalizado" value="true" type="radio" name="esSindicalizado"
+                                    id="sisindicalizado">
+                                <span class="radiomark"></span>
+                            </label>
+                        </div>
+                        <div>
+                            <label class="contenedorInputCheckRadio">No
+                                <input formControlName="esSindicalizado" value="false" type="radio" name="esSindicalizado"
+                                    id="nosindicalizado">
+                                <span class="radiomark"></span>
+                            </label>
+                        </div>
+
+                    </article>
+                </article>
+                <article class="titulo col">
+                        Área geográfica <span *ngIf="editarcampos">*</span>
+                        <article *ngIf="!editarcampos"class="titulo col">
+                            <article style="margin-left: -14px !important;">{{areaGeo}}</article>
+                        </article>
+                        <article *ngIf="editarcampos">
+                            <div *ngFor="let item of arregloareasgeograficas">
+    
+                                <label class="contenedorInputCheckRadio">{{item.descripcion}}
+                                    <input [ngClass]="{'is-invalid':f.areaGeograficaId.errors && f.areaGeograficaId.touched}"
+                                        formControlName="areaGeograficaId" name="areaGeograficaId" type="radio"
+                                        [value]="item.areaGeograficaId" [id]="item.nombreCorto">
+                                    <span class="radiomark"></span>
+                                </label>
+    
+                                <div class="invalid-feedback">
+                                    Campo requerido
+                                </div>
+                            </div>
+                            
+                        </article>
+                    </article>
+                    <article *ngIf="!activaFechaFin" class="titulo col"></article>
+                    <article *ngIf="activaFechaFin" class="titulo col">
+                            Fecha de fin de contrato <strong aria-hidden="true" *ngIf="f.tipoContratoId.value !== '10' && f.tipoContratoId.value !== '1' ">*</strong>
+
+                        <article *ngIf="editarcampos" style="color: #7C7C7C;">
+                            Elegir fecha
+                            <article >
+                                <input [min]="f.fechaInicio.value" #fechaFinCont (focusout)="validarfechaFinCont(fechaFinCont.value)" [ngClass]="{'is-invalid':f.fechaFin.errors && f.fechaFin.touched}" formControlName="fechaFin"
+                                    type="date" name="" class="form-control">
+                                <div class="invalid-feedback">
+                                    Campo requerido
+                                </div>
+                            </article>
+                        </article>
+                        <article *ngIf="!editarcampos">
+                            {{empleado.fechaFin | date:'dd'}} {{empleado.fechaFin | date:'MMMM'}} {{empleado.fechaFin | date:'yyyy'}}
+                        </article>
+                    </article>
+
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row" *ngIf="editarcampos">
+        <div class="col-12">
+            <div class="text-right " style="margin-bottom: 20px; margin-right: 16px;">
+
+                <button (click)="editarcampos = false;accionarCancelar()" type="button" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+                <button type="submit" class="btn btn-primary button-fill">Guardar</button>
+            </div>
+        </div>
+    </div>
+</form>

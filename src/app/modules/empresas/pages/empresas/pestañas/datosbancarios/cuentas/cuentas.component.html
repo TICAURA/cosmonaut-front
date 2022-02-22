@@ -1,0 +1,83 @@
+<form [formGroup]="myForm" (ngSubmit)="enviarFormulario()" class="background-panel">
+
+    <input type="hidden">
+    <br>
+    <div class="form-group mt-3 row margen"><label class="titulo">INFORMACIÓN DE CUENTA BANCARIA</label></div>
+
+    <div class="form-group row margen">
+        <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+            <label>Nombre de cuenta *</label>
+            <input #nombre formControlName="nombreCuenta" type="text" class="form-control" [ngClass]="{'is-invalid':f.nombreCuenta.errors && submitEnviado}" placeholder="">
+            <div  class="invalid-feedback">
+                Campo requerido
+            </div>
+        </div>
+        <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+            <label>Cuenta CLABE *</label>
+            <input appSolonumeros placement="top" [mdbTooltip]="'clabe' | tooltip" #clabe (focusout)="validarBanco(clabe.value)" maxlength="18" formControlName="clabe" type="text" class="form-control" value="" [ngClass]="{'is-invalid':(submitEnviado && f.clabe.errors?.required) || (f.clabe.errors?.pattern && f.clabe.touched)}"
+                placeholder="">
+            <div *ngIf="submitEnviado && f.clabe.errors?.required" class="invalid-feedback">
+                Campo requerido
+            </div>
+            <div *ngIf="f.clabe.errors?.pattern && f.clabe.touched" class="invalid-feedback">
+                La CLABE no es válida
+            </div>
+        </div>
+        <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4" style="position: relative;">
+            <label>Número de cuenta *</label>
+            <input formControlName="numeroCuenta" appSolonumeros type="text" maxlength="10" class="form-control disabled bg-light" [ngClass]="{'is-invalid':f.numeroCuenta.errors && submitEnviado}" placeholder="">
+            <div *ngIf="submitEnviado && f.numeroCuenta.errors" class="invalid-feedback">
+                Campo requerido
+            </div>
+        </div>
+        <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+            <label for="exampleFormControlSelect1">Banco *</label>
+            <select formControlName="idbanco" class="form-control disabled bg-light" [ngClass]="{'is-invalid':f.idbanco.errors && submitEnviado}">
+        <option *ngFor="let item of arregloBancos" [value]="item.bancoId">{{item.nombreCorto}}</option>
+      </select>
+            <div *ngIf="submitEnviado && f.idbanco.errors" class="invalid-feedback">
+                Campo requerido
+            </div>
+        </div>
+        <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+            <label>Número de sucursal</label>
+            <input placement="top" maxlength="8" [mdbTooltip]="'numSucursal' | tooltip" appSolonumeros formControlName="num_sucursal" type="text" class="form-control" placeholder="">
+        </div>
+        <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+            <label>Descripción</label>
+            <input formControlName="descripcion" type="text" class="form-control" placeholder="">
+        </div>
+        <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+            <label>Número de información</label>
+            <input placement="top" maxlength="20" [mdbTooltip]="'numInfo' | tooltip" appSolonumeros formControlName="num_informacion" type="text" class="form-control" placeholder="">
+        </div>
+        <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+            <label for="exampleFormControlSelect1">Función de la cuenta *</label>
+            <select formControlName="funcionCuentaId" class="form-control" [ngClass]="{'is-invalid':f.funcionCuentaId.errors && submitEnviado}">
+        <option *ngFor="let item of arregloCuentas" [value]="item.funcionCuentaId">{{item.descripcion}}</option>
+      </select>
+            <div *ngIf="submitEnviado && f.funcionCuentaId.errors" class="invalid-feedback">
+                Campo requerido
+            </div>
+        </div>
+        <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+            <label>Estatus</label>
+            <select name="" class="form-control" formControlName="esActivo">
+        <option value="true">Activo</option>
+        <option value="false">Inactivo</option>
+      </select>
+        </div>
+    </div>
+    <div class="scrooll-designempresa">
+        <div class="mt-3">
+            <div class="row margen">
+            <div class="col text-right" style="margin-bottom: 20px;">
+                <button type="button" (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+                <button type="submit" class="btn btn-primary button-fill mr-2">Guardar</button>
+            </div>
+            </div>
+
+        </div>
+    </div>
+
+</form>

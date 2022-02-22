@@ -1,0 +1,98 @@
+<div style="margin-left: 10px;background-color: #f6f7f9;" class="contenido_component">
+
+
+
+    <div class="wrapper">
+        <div (click)="mostrarmenu = false" class="backgroundresponsive" [ngClass]="{'backgroundresponsive':mostrarmenu}"></div>
+        <nav style="background-color: #f6f7f9;" *ngIf="configuracionPrd.menu" aria-label="cosmonaut" id="sidebar" [ngClass]="{'sidebarMenu':mostrarmenu}">
+            <div class="col-2 responsivo"><button style="    margin-left: 16px;
+                margin-top: 7px;" (click)="mostrarmenu = false">
+                <i aria-hidden="true" class="fa fa-bars"></i>
+            </button></div>
+            <div class="sidebar-header imgmovil">
+                <img src="assets/imgs/logo.png" alt="" srcset="">
+            </div>
+            <div style="background-color: #f6f7f9;
+            margin: 8px;" class="sidebar-header imgescritorio">
+                <img src="assets/imgs/logo2.png" alt="" srcset="">
+            </div>
+            <div class="tituloabajoimg" style="margin: 9px">
+                <article>
+                    {{nombre}}
+                    <article >
+                        {{nombreRol}}
+                    </article>
+                    <article >
+                        {{nombreEmpresa}}
+                    </article>
+                    <article >
+                        {{centrocClienteIdPadre}}
+                    </article>
+                    
+                </article>
+            </div>
+            <br><br>
+            
+            <ul id="listanavegadora" class="list-unstyled components" >
+                <ng-container *ngFor="let item of PRINCIPAL_MENU;let indice = index">
+                    <li #liselection *ngIf="item.checked" style="text-align: right; background-color: #f6f7f9;" [ngClass]="{'active':item.seleccionado}">
+                        <a (mouseover)="entraComponente(item)" (mouseout)="saleComponente(item)" style="display: inline-block;position: relative;" [routerLink]="item.pathServicio" (click)="seleccionado(item,indice,liselection)" [ngClass]="{'dropdown-toggle':true}">
+                            <i aria-hidden="true" [class]="item.icono"></i> <span style="display: block;color:white;font-size: 11px; white-space: pre-wrap;">{{item.nombreModulo}}</span>
+                            <span *ngIf="item.nombreModulo.includes('Chat') && notificacionesPrd.notificacionesMenu !== 0" class="badge badge-danger">{{notificacionesPrd.notificacionesMenu}}</span></a>
+                        <ul id="elemento1" class="labelflotantemenu" *ngIf="item.seleccionadosubmenu">
+                            <ng-container *ngFor="let item2 of item.submodulos">
+                                <li *ngIf="item2.checked">
+                                    <span (click)="irRuta(item2);seleccionarSubmenu(item,item2);">{{item2.nombreSubmodulo }}</span>
+                                    <span *ngIf="item2.nombreSubmodulo.includes('Perfiles pendientes') && incompletos"  class="badge badge-danger" disabled style="background-color: red;
+                                    margin-left: 0px;
+                                    margin-right: 134px;">{{empIncompletos}}</span>
+                                </li>
+                            </ng-container>
+                        </ul>
+                    </li>
+                </ng-container>
+                <li *ngIf="PRINCIPAL_MENU === undefined" style="text-align: right;text-align: center;background-color: #f6f7f9;" id="salirbtn">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only"></span>
+                    </div>
+                </li>
+                <li *ngIf="PRINCIPAL_MENU !== undefined" style="text-align: right;background-color: #f6f7f9;" id="salirbtn" (click)="cerrarSesion()">
+                    <a (mouseover)="botonsalir=true" (mouseout)="botonsalir=false" style="display: inline-block;    border-bottom-left-radius: 19px;"> <i aria-hidden="true" class="icon_cerrarsesion"></i>
+                        <ng-container>                            
+                       <li>
+                        <span style="display: block;color:white;font-size: 11px; white-space: pre-wrap;">Cerrar sesión</span>
+                    </li>
+                </ng-container>
+
+                    </a>
+                </li>
+            </ul>
+            
+        </nav>
+        <div id="contenido" (mouseout)="saleComponente(undefined)" class="content" [ngClass]="{'scrollhide':modal.modal || emergente.modal}" style="position: relative;">
+            <nav aria-label="cosmonaut" aria-label="cosmonautnav" class="navbar navbar-expand-lg navbar-light">
+
+                <div class="col-2">
+
+                </div>
+                <div class="col-2 aparece-desktop"></div>
+                <div class="col-5"></div>
+                <div class="col-5 text-right">
+                </div>
+            </nav>
+            <div class="container-fluid">
+                <router-outlet></router-outlet>
+
+                <app-alert-questions *ngIf="modal.modal" [titulo]="modal.strTitulo" [subtitulo]="modal.strSubtitulo" [iconType]="modal.iconType" (eventoFunciones)="recibir($event)"></app-alert-questions>
+                <app-ventanaemergenteprincipal [ventanaalerta]="emergente.ventanaalerta" *ngIf="emergente.modal" [titulo]="emergente.titulo" [mostrar]="mostrar" (salida)="recibirEmergente($event)" [datos]="emergente.datos"></app-ventanaemergenteprincipal>
+               
+
+            </div>
+        </div>
+    </div>   
+    <div *ngIf="!configuracionPrd.ocultarChat" class="chaticon" [class.heartbeat]="notificacionesPrd.notificacionesglobito !== 0">
+        <span *ngIf="notificacionesPrd.notificacionesglobito !== 0" class="badge badge-danger">{{notificacionesPrd.notificacionesglobito}}</span>
+        <img (click)="chat.ocultar = !chat.ocultar" width="40px" height="40px" src="assets/imgs/ICO_CHAT.png" alt="">
+    </div>
+    <app-chatboot *ngIf="!chat.ocultar" [datos]="chat.datos" (salida)="recibirchat($event)"></app-chatboot>
+</div>

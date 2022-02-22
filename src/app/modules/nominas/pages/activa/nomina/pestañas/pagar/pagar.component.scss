@@ -1,0 +1,38 @@
+.especialrow{
+    background: #e8e8e8;
+    margin: 12px 0;
+
+   
+}
+
+.estiloextralink{
+    display: inline-block !important;
+    color:#56dfd4 !important;
+    text-decoration: underline !important;
+    margin-right: 10px;
+}
+
+
+article{
+    font-size: medium;
+    font-weight: bold;
+    article{
+        font-size: smaller;
+        font-weight: normal;
+        color:gray;
+        
+    }
+}
+.fa, .fas {
+    font-weight: 600 !important;
+}
+
+
+.active
+{
+    color: #40e0d7!important;
+}
+
+.underline:hover{
+    color: #022538!important;
+}

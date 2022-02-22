@@ -1,0 +1,117 @@
+<form [formGroup]="myForm" (ngSubmit)="enviarFormulario()">
+
+
+    <div class="row mt-3">
+        <div class="col-10">
+            <div class="form group row">
+                <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                    <label>Registro patronal *</label>
+                    <input placement="top" [mdbTooltip]="'registroPatronal' | tooltip" formControlName="registroPatronal" maxlength="11" type="text" class="form-control" [ngClass]="{'is-invalid':f.registroPatronal.errors && submitEnviado || (f.registroPatronal.errors?.pattern && f.registroPatronal.touched)}"
+                        placeholder="">
+                    <div *ngIf="submitEnviado && f.registroPatronal.errors?.required" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+                    <div *ngIf="f.registroPatronal.errors?.pattern && f.registroPatronal.touched" class="invalid-feedback">
+                        Registro patronal no es válida
+                    </div>
+                </div>
+                <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                    <label>Prima de riesgo de trabajo *</label>
+                    <input placement="top" [mdbTooltip]="'primaRiesgo' | tooltip" formControlName="emPrimaRiesgo" maxlength="7" type="text" class="form-control" [ngClass]="{'is-invalid':(submitEnviado && f.emPrimaRiesgo.errors?.required) || (f.emPrimaRiesgo.errors?.pattern && f.emPrimaRiesgo.touched)}"
+                        placeholder="">
+                    <div *ngIf="submitEnviado && f.emPrimaRiesgo.errors?.required" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+                    <div *ngIf="f.emPrimaRiesgo.errors?.pattern && f.emPrimaRiesgo.touched" class="invalid-feedback">
+                        Prima de riesgo no es válida
+                    </div>
+                </div>
+
+                <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-4">
+                    <label>Clave subdelegacional IMSS *</label>
+                    <input appSolonumeros formControlName="emClaveDelegacionalImss" maxlength="2" type="text" class="form-control" [ngClass]="{'is-invalid':(submitEnviado && f.emClaveDelegacionalImss.errors?.required) || (f.emClaveDelegacionalImss.errors?.pattern && f.emClaveDelegacionalImss.touched)}"
+                        placeholder="">
+                    <div *ngIf="submitEnviado && f.emClaveDelegacionalImss.errors?.required" class="invalid-feedback">
+                        Campo requerido
+                    </div>
+                    <div *ngIf="f.emClaveDelegacionalImss.errors?.pattern && f.emClaveDelegacionalImss.touched" class="invalid-feedback">
+                        Clave subdelegacional IMSS no es válida
+                    </div>
+                </div>
+
+            </div>
+            <div class="form group row">
+                <div class="input-group-sm mb-3 col-12 col-sm-12 col-lg-12"></div>
+                <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                    <label class="contenedorInputCheckRadio" placement="top" [mdbTooltip]="'imssObrero' | tooltip">IMSS obrero integrado a IMSS patronal para salario mínimo
+                    <input formControlName="emImssObreroIntegradoApatronal" type="checkbox" name="" id="emImssObreroIntegradoApatronal">
+                    <span class="checkmark"></span>
+                  </label>
+                </div>
+
+                <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6"></div>
+                <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6" *ngIf="show">
+                    <label class="contenedorInputCheckRadio">Cálculo automático de promedio de variables
+                    <input formControlName="emCalculoAutoPromedioVar" type="checkbox" class="form-check-input"
+                    id="emCalculoAutoPromedioVar">
+                    <span class="checkmark"></span>
+                  </label>
+                </div>
+
+                <div class="input-group-sm mb-3 col-12 col-sm-4 col-lg-4">
+                    <label>Usuario de certificado IMSS *</label>
+                    <input formControlName="usuarioCerIMSS" #usuarioCerIMSS (focusout)="validarUsuarioCerIMSS(usuarioCerIMSS.value)" maxlength="250" type="text" class="form-control" 
+                        placeholder="" [ngClass]="{'is-invalid':f.usuarioCerIMSS.errors && submitEnviado || (f.usuarioCerIMSS.errors?.pattern && f.usuarioCerIMSS.touched)}">
+                        <div *ngIf="submitEnviado && f.usuarioCerIMSS.errors?.required" class="invalid-feedback">
+                            Campo requerido
+                        </div>
+                </div>
+
+                <div class="input-group-sm mb-3 col-12 col-sm-4 col-lg-4">
+                    <label>Contraseña de certificado IMSS *</label>
+                    <input formControlName="contrasenaCerIMSS" #contrasenaCerIMSS (focusout)="validarContrasenaCerIMSS(contrasenaCerIMSS.value)"  maxlength="30" type="password" class="form-control" 
+                        placeholder="" [ngClass]="{'is-invalid':f.contrasenaCerIMSS.errors && submitEnviado || (f.contrasenaCerIMSS.errors?.pattern && f.contrasenaCerIMSS.touched)}">
+                        <div *ngIf="submitEnviado && f.contrasenaCerIMSS.errors?.required" class="invalid-feedback">
+                            Campo requerido
+                        </div>
+                </div>
+
+                <div class="input-group-sm mb-3 col-12 col-sm-8 col-lg-8">
+                    <label>Certificado IMSS *</label>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" #cerIMSS (focusout)="validarCerIMSS(cerIMSS.value)" formControlName="cerIMSS" 
+                        [ngClass]="{'is-invalid':f.cerIMSS.errors && submitEnviado || (f.cerIMSS.errors?.pattern && f.cerIMSS.touched)}">
+                            <div *ngIf="submitEnviado && f.cerIMSS.errors?.required" class="invalid-feedback">
+                                Campo requerido
+                            </div>
+                        <div (click)="abrirCerIMSS()" class="input-group-append" style="cursor: pointer;">
+                            <span style="font-size: small;" class="input-group-text dark" id="basic-addon2"><i
+                                    aria-hidden="true" class="icon_upload"></i> Subir archivo</span>
+                        </div>
+                      
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <div class="scrooll-designempresa">
+        <div class="mt-3">
+            <div class="row margen">
+            <div class="col text-right" style="margin-bottom: 20px;">
+                <button (click)="cancelar()" type="button" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+                <button type="submit" class="btn btn-primary button-fill">Guardar</button>
+            </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div *ngIf="cargando" class="col text-center mb-5">
+        <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
+    </div>
+</form>

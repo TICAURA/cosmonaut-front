@@ -1,0 +1,310 @@
+.contenido_component{
+    
+
+
+
+.content{
+    background-color: $fondo;
+    width: 100%;
+    border-radius: 25px;
+    height: 98vh;
+    margin-top: 1vh;
+    overflow: hidden;
+    margin-right: 9px;
+}
+
+.content-modal{
+    overflow: hidden!important;
+    position: relative;
+}
+
+.content::-webkit-scrollbar{
+    width: 0 !important;
+}
+
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: flex-start;
+    height: 100vh !important;
+    overflow: hidden;
+}
+
+
+
+#sidebar {
+    min-width: 150px;
+    min-height: 100vh;
+    height: 100vh;
+    
+
+    overflow-y: scroll;
+}
+
+#sidebar::-webkit-scrollbar {
+    width: 0 !important;
+}
+#sidebar.active {
+    margin-left: -250px;
+    
+    
+}
+
+a[data-toggle='collapse'] {
+    position: relative;
+}
+
+.dropdown-toggle::after {
+    display: none;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+
+
+
+p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1em;
+    font-weight: 300;
+    line-height: 1.7em;
+    color: #999;
+}
+
+a, a:hover, a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+#sidebar {
+    /* don't forget to add all the previously mentioned styles here too */
+    background: white;
+    color: $dark;
+    transition: all 0.3s;
+
+    @media only screen and (max-width : $pantallamovil)
+    {
+
+        color:white;
+
+
+    }
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    background: white;
+    text-align: center;
+    margin: 19px;
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+    
+    margin-top: -30px;
+}
+
+#sidebar ul p {
+    color: #fff;
+    padding: 10px;
+}
+
+#sidebar{
+    @media only screen and (max-width : $pantallamovil)
+    {
+    #listanavegadora{
+        padding-left: 25%;
+    }}
+}
+
+#sidebar ul li a {
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+    text-align: left;
+    width: 108px;
+    text-align: center;
+    border: 1px solid white;
+    background: #51cec0;
+    border-right: #51cec0;
+    i{
+        background: white!important;
+    }
+}
+#sidebar ul li a:hover {
+    color: $primary;
+    background: #3ea196;
+    
+    i{
+        background-color: $primary;
+    } 
+
+  
+}
+
+
+
+#sidebar ul li.active > a{
+    color: #00DED4;
+    background: #022538;
+    border-style: solid;
+    width: 116px;
+    border-width: 2px;
+    text-align: left;
+    border: #022538;
+    font-size: 16px;
+    height: 80px;
+    text-align: center;
+    -webkit-box-shadow: -10px 2px 13px -7px rgba(0,0,0,0.71); 
+box-shadow: -10px 2px 13px -7px rgba(0,0,0,0.71);
+    /* border-radius: 5px; */
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+
+    i{
+        background-color: $primary;
+    }
+
+
+    
+  @media only screen and (max-width : $pantallamovil)
+  {
+
+    i{
+        background-color: $primary;
+    }
+
+    color: $primary;
+    background: transparent;
+    border-style: none;
+    width: 253px;
+    border-width: 2px;
+    text-align: left;
+    border-radius: 20px;
+
+  }
+
+}
+ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 60px !important;
+    background: white;
+    color:black;
+    @media only screen and (max-width : $pantallamovil)
+  {
+
+    font-size: 0.9em !important;
+    padding-left: 60px !important;
+    background: $dark;
+    color:white;
+
+   
+
+  }
+
+}
+
+.cabecera{
+    width: 100% !important;
+    color: white !important;
+}
+
+
+
+.chaticon{
+    position: sticky;
+    bottom: 5%;
+    right: 40px;
+    text-align: right;
+    float: right;
+    span{
+        position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 50%;
+    border: 1px solid;
+
+    }
+}
+
+.chaticon img{
+    
+    margin-bottom: 12px;
+    cursor: pointer;
+}
+
+
+
+
+
+
+.sidebar-header img{
+    max-width: 105px;
+    height: auto;
+    
+}
+
+
+  a{
+    display: flex;
+    flex-direction: row;
+  }
+
+  @media only screen and (max-width : $pantallamovil)
+  {
+
+
+
+    .content{
+        
+        width: 100%;
+        border-radius: 0px;
+        height: 100vh;
+        margin-top: 0;
+        overflow: auto;
+        margin-right: 24px;
+    }
+
+    .wrapper{
+
+        display: block;
+
+    }
+
+    #sidebar{
+        display: none;
+    }
+
+    .sidebarMenu{
+        display: block !important;
+        background: $dark !important;
+        .sidebar-header{
+            background-color: transparent !important;
+        }
+
+        position: absolute;
+        /* top: 0; */
+        left: 0;
+        right: 0;
+        bottom: 18vh;
+        z-index: 4;
+        border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+
+         .responsivo{
+            margin-top: 18vh;
+         }
+        
+        -webkit-animation: slide-in-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        animation: slide-in-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    }
+
+ 
+
+
+  
+
+  }
+}

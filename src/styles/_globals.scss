@@ -1,0 +1,53 @@
+/* Colors: */
+
+$unnamed-color-002637: #002637;
+$unnamed-color-00ded4: #00DED4;
+$unnamed-color-00c1af: #00C1AF;
+
+/* Font/text values */
+
+$unnamed-font-family-roboto: Roboto;
+$unnamed-font-style-normal: normal;
+$unnamed-font-weight-bold: bold;
+$unnamed-font-weight-medium: medium;
+$unnamed-font-size-12: 12px;
+$unnamed-font-size-16: 16px;
+$unnamed-font-size-25: 25px;
+$unnamed-character-spacing-0-24: 0.24px;
+$unnamed-character-spacing-1-25: 1.25px;
+$unnamed-character-spacing-0-32: 0.32px;
+$unnamed-line-spacing-15: 15px;
+$unnamed-line-spacing-33: 33px;
+$unnamed-text-transform-uppercase: uppercase;
+$primary:$unnamed-color-00ded4;
+$secondary:$unnamed-color-00c1af;
+$dark:$unnamed-color-002637;
+$light:#F5F7F8;
+$green:#67BF89;
+$blue:#1C8DD4;
+$orange:#E17B5B;
+$yellow:#FED630;
+$light_titulo:#7C7C7C;
+$fondo: #022538;
+$pantallamovil:600px;
+.primary {
+    color: $secondary;
+    font-size: large;
+}
+
+.dark {
+    color: $dark;
+}
+
+.danger {
+    color: $orange;
+    font-size: large;
+}
+
+.primary-bg {
+    background-color: $secondary !important;
+}
+
+.danger-bg {
+    background-color: $orange !important;
+}

@@ -1,0 +1,81 @@
+<div class="m-1">
+    <div class="row m-2">
+
+        <div class="col-8">
+
+            <span (click)="anteriorMes()" class="primary cursor">
+                <i aria-hidden="true"  style="cursor: pointer;font-family: -webkit-pictograph;"> &#60; </i>
+            </span><span class="primary ml-5 mr-5">
+                {{(fecha | date:'MMMM' | uppercase)?.replace('.','')}} {{fecha | date:'yyyy'}}
+            </span><span (click)="siguienteMes()" class="primary cursor"><i aria-hidden="true" 
+                    style="cursor: pointer;font-family: -webkit-pictograph;">&#62;
+                </i></span>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div >
+            <table aria-hidden="true" aria-describedby="calendario">
+                <thead>
+                    <th id="">Dom</th>
+                    <th id="">Lun</th>
+                    <th id="">Mar</th>
+                    <th id="">Mie</th>
+                    <th id="">Jue</th>
+                    <th id="">Vie</th>
+                    <th id="">Sab</th>
+                </thead>
+                <tbody >
+                    <tr  *ngFor="let item of arregloArreglos" appTamanioVentana [pixeles]="510">
+                        <td class="posicion fade-in " [ngClass]="{'noEsDia':!aux.mesActual,'tdActual':aux.esDiaNow}" *ngFor="let aux of item"><span class="absolutoClass"><span
+                                    [ngClass]="{'diaActual':aux.esDiaNow}">{{aux.dia}}</span></span>
+
+                            <div *ngIf="aux.scroll" style="height: 210px; overflow-y: auto; padding-top: 29px;">      
+                                <div style="width: 100%; min-height: 16px;" (click)="aparecerModalEvento(evento,$event)" 
+                                *ngFor="let evento of aux.eventos" class="evento otros" [ngClass]="{'primadominical':evento.tipoIncidenciaId == 9,'festivoslaborados':evento.tipoIncidenciaId == 16,'cumpleanios':evento.tipoIncidenciaId == 8,'faltas':evento.tipoIncidenciaId == 5,'diaseconomicos':evento.tipoIncidenciaId == 2,'vacaciones':evento.tipoIncidenciaId == 1,'horasextras':evento.tipoIncidenciaId == 13 || evento.tipoIncidenciaId == 14,'incapacidades':evento.tipoIncidenciaId == 3,'descansolaborados':evento.tipoIncidenciaId == 11}">
+                                        {{evento.nombre}}
+                                </div>
+                           </div>   
+                           
+                           <div *ngIf="!aux.scroll">      
+                                <div style="width: 100%; min-height: 16px;" (click)="aparecerModalEvento(evento,$event)" 
+                                *ngFor="let evento of aux.eventos" class="evento otros" [ngClass]="{'primadominical':evento.tipoIncidenciaId == 9,'festivoslaborados':evento.tipoIncidenciaId == 16,'cumpleanios':evento.tipoIncidenciaId == 8,'faltas':evento.tipoIncidenciaId == 5,'diaseconomicos':evento.tipoIncidenciaId == 2,'vacaciones':evento.tipoIncidenciaId == 1,'horasextras':evento.tipoIncidenciaId == 13 || evento.tipoIncidenciaId == 14,'incapacidades':evento.tipoIncidenciaId == 3,'descansolaborados':evento.tipoIncidenciaId == 11}">
+                                        {{evento.nombre}}
+                                </div>
+                            </div>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+</div>
+
+
+<div *ngIf="aparecerModalita" [style.top]="top+'px'" [style.background-color]="eventoActual.color" [style.left]="left+'px'" class="modalita flip-in-hor-bottom ">
+    <button style="color:white" (click)="aparecerModalita = false" type="button" class="close btnclosemodal mr-2" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <div class="cuerpo">
+        <span style="color:white;font-size: medium;">{{eventoActual.incidenciaDescripcion}}</span> <br>
+        <span style="    color: white;
+    font-size: large;
+">{{eventoActual.nombre}}</span> <br>
+
+        <span style="color:white;font-size:medium;">Dias: {{eventoActual.duracion}}</span> <br>
+        <span style="color:white;font-size: medium;">Fecha inicio: {{eventoActual.fechaInicio | date:'dd MMM yyyy'}}</span><br>
+        <span style="color:white;font-size: medium;">Fecha termino: {{eventoActual.fechaFin | date:'dd MMM yyyy'}}</span><br>
+        <span style="color:white;font-size: medium;">Fecha aplicación: {{eventoActual.fechaAplicacion | date:'dd MMM yyyy'}}</span><br>
+        <span *ngIf="eventoActual.monto" style="color:white;font-size: medium;">Monto: {{eventoActual.monto | number :'1.2-2' | currency}}</span><br>
+        <span style="color:white;font-size: medium;">Politica aplicación: {{eventoActual.politicaNombre }}</span><br>
+        <span *ngIf="eventoActual.comentarios" style="color:white;font-size: medium;">Comentario: {{eventoActual.comentarios }}</span>
+        <br>
+        <div style="width: 100%; text-align: center;">
+            <button (click)="aparecerModalita = false" style="background-color: white; color:black" class="btn btn-primary button-outlet mr-2">Cerrar</button>
+        </div>
+    </div>
+</div>

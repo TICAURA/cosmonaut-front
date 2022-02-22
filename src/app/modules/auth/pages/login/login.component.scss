@@ -1,0 +1,94 @@
+
+
+.centrarLogo{
+    width: 250px;
+    margin: auto;
+    display: inherit;
+}
+
+
+.contenedor{
+ display: flex;   
+ flex-wrap: wrap;
+ align-content:space-between;
+ padding: 10px 197px;
+
+ &::-webkit-scrollbar {
+    width: 10px;
+    height: 5px;
+    cursor: pointer;
+  }
+
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #00ded4; 
+    border-radius: 3px;
+  }
+
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #00c4ba; 
+  }
+
+
+
+
+ .caja:hover{
+   
+    img{
+        width: 100px;
+        height: 100px;
+    }
+   
+
+
+      //  background: #fffdea;
+ }
+ 
+ .caja{
+    width: 130px;
+    height: 130px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    
+    
+
+   *{
+       display: block;
+   }  
+   img{
+       width: 80px;
+       height: 80px;
+       border-radius: 50%;
+       padding: 10px;
+       margin: auto;
+   }
+
+   span{
+       margin-top: 7px;
+       text-align: center;
+       font-size: small;
+       font-weight: 600;
+       color:#16a1b7;
+   }
+   background: #e5e8ea;
+   border-radius: 20px;
+   border:1px dotted solid;
+   
+}
+
+.butonEye{
+    border-top-right-radius: 5px !important;
+    border-bottom-right-radius: 5px !important;
+    background: #e5e8ea;
+    height: 38px !important;
+}
+
+.seleccionado{
+    background: #fbfbb5;
+}
+}

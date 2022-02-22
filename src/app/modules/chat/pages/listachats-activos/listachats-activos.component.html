@@ -1,0 +1,32 @@
+
+<div class="row margen titulosfijos">
+    <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
+        <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa float-left"><button disabled>
+            <img src="assets/imgs/menu.png" alt="" srcset="">
+        </button>
+        </div>  
+        <li class="float-left"><a routerLinkActive="active"  class="nav-link" data-toggle="tab"  role="tab" 
+            (click)="inicio()"> {{modulo}}</a>
+        </li>
+        <li style="padding-top: 10PX;" class="float-left">
+            {{subModulo}} 
+        </li>
+    </ul>
+</div>
+
+<div class="background-ajustar" appTamanioVentana [pixeles]="100">
+<div class="scrooll-design">
+    <div class="row margen">
+
+        <div class="col text-right">
+            <button type="button" class="btn btn-light button-outlet" (click)="editarMensaje()">
+            <i aria-hidden="true" class="icon_24agregar primary-bg"></i>Editar mensaje
+          </button>
+        </div>
+    </div>
+    <div class="row margen margen-tabla background-panel">
+        <app-tablapaginado [datos]="arreglotabla" [chat]="true" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
+    </div>
+
+</div>
+</div>

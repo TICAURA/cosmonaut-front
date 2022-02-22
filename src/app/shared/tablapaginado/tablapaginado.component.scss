@@ -1,0 +1,313 @@
+.mostrarelementos {
+    width: 180px;
+    label {
+        background: #022538;
+        color: white;
+        font-size: smaller;
+    }
+}
+
+.search {
+    max-width: 15px;
+}
+
+.fa, .fas {
+    font-weight: 600 !important;
+}
+
+
+.estiloextralink{
+    display: inline-block !important;
+    color:#56dfd4 !important;
+    text-decoration: underline !important;
+    font-size: 16px;
+}
+
+.btn-search {
+    border-radius: 0 !important;
+}
+
+input[type="text"] {
+    background-color: #F5F7F8;
+    max-width: 60%;
+    border: 0 none transparent;
+}
+
+input[type="text"]:disabled {
+    background-color: #F5F7F8;
+    max-width: 70px;
+    border: 0 none transparent;
+}
+
+.right {
+    text-align: right;
+}
+
+.row-between {
+    display: flex;
+    align-items: center;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    max-width: 100%;
+}
+
+.estiloid {
+    color: #56dfd4;
+    cursor: pointer;
+}
+
+.td-center {
+    text-align: center !important;
+}
+
+.td-right {
+    text-align: right !important;
+}
+
+.anchura {
+    width: 95%;
+}
+
+.ocultarcolumna {
+    display: none!important;
+}
+
+table {
+    th {
+        text-align: center;
+    }
+ 
+    th:nth-child(1) {
+        .contenedorInputCheckRadio{
+        margin-bottom: 3;
+        }
+    }
+    
+
+    td {
+        text-align: left;
+        outline: none !important;
+        // max-width: 500px;
+    }
+}
+.wrap {
+    max-width: 150px;
+    text-align: justify;
+    white-space: pre-wrap;
+    /* CSS3 */
+    white-space: -moz-pre-wrap;
+    /* Firefox */
+    white-space: -pre-wrap;
+    /* Opera <7 */
+    white-space: -o-pre-wrap;
+    /* Opera 7 */
+    word-wrap: break-word;
+    /* IE */
+}
+
+.pagination .page-item.active .page-link {
+    
+    border-radius: 50% !important;
+}
+
+.centrar {
+    text-align: center !important;
+}
+
+.derecha {
+    text-align: right !important;
+}
+
+.centrarIconos {
+    text-align: right !important;
+    position: revert !important;
+}
+
+.table .opciones button:focus {
+    background-color: transparent !important;
+    border: 0 !important;
+    outline: none !important;
+}
+
+
+.flechaarriba {
+    position: absolute;
+    right: 0;
+    top: calc(50% - 10px);
+    color: #b7b7b7;
+    outline: none !important;
+
+}
+
+.flechaabajo {
+    position: absolute;
+    right: 0;
+    bottom: calc(50% - 10px);
+    color: #b7b7b7;
+    outline: none !important;
+}
+
+.colorear {
+    color: #53d2bf !important;
+}
+
+.titulo1xml {
+    font-size: 10px;
+    color: rgb(100, 100, 100);
+}
+
+.btnclosemodal {
+    top: 0 !important;
+    position: absolute !important;
+    right: 11px !important;
+    outline: none;
+
+    span {
+        color: #56dfd4;
+        font-size: 32px;
+        border: 0 !important;
+        outline: none !important;
+        margin: 0px;
+    }
+}
+
+
+.tablaTimbrado {
+
+    width: 100%;
+    .totalesTimbrado {
+        text-align: left !important;
+        color: #56dfd4!important;
+    }
+    th {
+      
+        text-align: left !important;
+        border: 1px solid white;
+    }
+    td {
+        border: 1px solid white;
+    }
+}
+
+.texto::after{
+    content: 'Timbrar' !important;
+}
+
+.estiloemergente{
+    -webkit-box-shadow: -5px -1px 19px -1px rgba(0,0,0,0.68); 
+    box-shadow: -5px -1px 19px -1px rgba(0,0,0,0.68);
+    position: fixed;
+    left:40px;
+    top:0;
+    width:400px;
+    height:300px;
+    border-radius: 10px;
+    background: whitesmoke;
+    z-index: 1;
+    border: 1px solid #b5b5b5;
+    overflow: auto;
+  .cabecera{
+      background-color: #022538;
+      height: 20px;
+      color:black;
+      text-align: center;
+      font-size: 12px;
+      button{
+
+    margin-right: 11px;
+    color: white;
+    padding-bottom: 15px;
+      }
+
+  }
+  .cuerpo{
+      background-color: #f3f3f3;
+
+  }
+}
+
+
+.flechas{
+    font-size: 12px;
+    font-family: monospace;
+    display: block;
+    position: absolute;
+    top:20px;
+    right:0; 
+    color:rgb(204, 204, 204);
+    outline: none !important;
+}
+
+.header{
+    padding: 2rem 0;
+    position: fixed;
+    left: 84px;
+    top: 391px;
+    right: 0;
+}
+
+.flechas:first-child{
+    top:10px;
+    outline: none !important;
+}
+
+
+.cargandoPaginadoServer{
+    position: absolute;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    background: #ffffffd9;
+    top: 51px;
+    height: 100px;
+    font-size: x-large;
+    padding-top: 33px;
+    z-index: 1;
+}
+
+.posicionRelativa{
+    position: relative;
+}
+
+
+
+.noCursor{
+    cursor: not-allowed  !important;
+}
+.hipervinculo{
+    background-color: red;
+} 
+
+
+.letramayuscula{
+    .titulo{
+      text-transform: capitalize;    
+    }
+}
+
+
+.letrablanca{
+    color:white;
+}
+.estiloLinnk{
+    color: #56dfd4 !important;
+    text-decoration: underline !important;
+    cursor: pointer;
+    top: 40%;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    margin-top: calc(50%);
+    i{
+        background: #57ded4;
+        /* margin-top: 1px; */
+        display: inherit;
+        margin: -5px;
+        margin-right: 2px;
+    }
+}
+
+.recalcularclass::after{
+    content:'Recalcular';
+}
+

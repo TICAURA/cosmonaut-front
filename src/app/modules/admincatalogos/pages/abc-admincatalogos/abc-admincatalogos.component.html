@@ -1,0 +1,613 @@
+<div class="row margen">
+    <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
+        <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa float-left"><button disabled>
+            <img src="assets/imgs/menu.png" alt="" srcset="">
+        </button>
+        </div>  
+        <li class="float-left"><a routerLinkActive="active"  routerLink="/inicio" class="nav-link" data-toggle="tab"  role="tab" 
+            > {{modulo}}</a>
+        </li>
+        <li class="float-left">
+            <a routerLinkActive="active" class="nav-link" data-toggle="tab"  role="tab" 
+            (click)="cancelar()" >{{subModulo}}</a>
+        </li>
+        <li class="float-left">
+            <a routerLinkActive="active" class="nav-link" data-toggle="tab"  role="tab" 
+            (click)="redirect(undefined)" >{{id_catalogo}}</a>
+        </li>
+        <li style="padding-top: 10PX;" class="float-left">
+            INFORMACIÓN DE CATALOGO
+        </li>
+    </ul>
+</div>
+
+
+<hr>
+<form *ngIf="formGeneral" [formGroup]="myForm" class="form-desing"  (ngSubmit)="enviarPeticion()">
+    <input type="hidden">
+    <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="200">
+        <br>
+        <div class="form-group row margen">
+            <label class="titulo">INFORMACIÓN DE CATÁLOGO</label>
+        </div>
+
+        <div class="form-group row margen">
+            <div *ngIf="activaClave" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Clave *</label>
+                <input formControlName="clave" maxlength="3" type="text" class="form-control"
+                [ngClass]="{'is-invalid':f.clave.errors && submitEnviado}">
+                <div *ngIf="f.clave.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+            <div *ngIf="activaClaveNumerica" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Clave *</label>
+                <input appSolonumeros formControlName="clave" maxlength="3" type="text" class="form-control"
+                [ngClass]="{'is-invalid':f.clave.errors && submitEnviado}">
+                <div *ngIf="f.clave.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+            <div *ngIf="activaClaveCuatro" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Clave *</label>
+                <input formControlName="clave" maxlength="4" type="text" class="form-control"
+                [ngClass]="{'is-invalid':f.clave.errors && submitEnviado}">
+                <div *ngIf="f.clave.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+
+            <div *ngIf="inactivaClave" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Clave *</label>
+                <input formControlName="clave" maxlength="4" type="text" class="form-control disabled bg-light">
+            </div>
+            <div *ngIf="activaClaveDos" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Clave *</label>
+                <input appSolonumeros maxlength="2" formControlName="clave" type="text" class="form-control"
+                [ngClass]="{'is-invalid':f.clave.errors && submitEnviado}">
+                <div *ngIf="f.clave.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+
+            <div *ngIf="banco" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Código *</label>
+                <input appSolonumeros formControlName="codBanco" maxlength="3" type="text" class="form-control disabled bg-light">
+            </div>
+            <div *ngIf="habilitarbanco" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Código *</label>
+                <input appSolonumeros formControlName="codBanco" maxlength="3" type="text" class="form-control "
+                [ngClass]="{'is-invalid':f.codBanco.errors && submitEnviado}">
+                <div *ngIf="f.codBanco.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+
+            <div *ngIf="descripcionGeneral" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Descripción *</label>
+                <input formControlName="nombreCorto" maxlength="250" type="text" class="form-control" 
+                [ngClass]="{'is-invalid':f.nombreCorto.errors && submitEnviado}">
+                <div *ngIf="f.nombreCorto.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+
+            </div>
+
+            <div *ngIf="razonBanco" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Razón social *</label>
+                <input formControlName="razonSocial" maxlength="250" type="text" class="form-control" 
+                [ngClass]="{'is-invalid':f.razonSocial.errors && submitEnviado}">
+                <div *ngIf="f.razonSocial.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+
+            </div>
+            <div *ngIf="regimen" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Fecha inicio de vigencia *</label>
+                <input formControlName="fecInicio" type="date" class="form-control"
+                [ngClass]="{'is-invalid':f.fecInicio.errors && submitEnviado}">
+                <div *ngIf="f.fecInicio.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+
+            </div>
+            <div *ngIf="percepcion" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label for="exampleFormControlSelect1">Tipo de concepto *</label>
+                <select formControlName="tipoConcepto" class="form-control"
+                [ngClass]="{'is-invalid':f.tipoConcepto.errors && submitEnviado}">
+                    <option value=""></option>
+                    <option value="O">Ordinaria</option>
+                    <option value="E">Extraordinaria</option>
+                </select>
+                
+                <div *ngIf="f.tipoConcepto.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+            <div *ngIf="percepcion" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label for="exampleFormControlSelect1">Tipo de periodicidad *</label>
+                <select formControlName="tipoPeriodicidad" class="form-control"
+                    [ngClass]="{'is-invalid':f.tipoPeriodicidad.errors && submitEnviado}">
+                    <option value=""></option>
+                    <option value="P">Periódica</option>
+                    <option value="E">Estándar</option>
+                    <option value="A">Ambas</option>
+                </select>
+                <div *ngIf="f.tipoPeriodicidad.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+
+            <div *ngIf="referencia" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label for="exampleFormControlSelect1">Tipo de valor de referencia *</label>
+                <select formControlName="valorReferencia" class="form-control"
+                [ngClass]="{'is-invalid':f.valorReferencia.errors && submitEnviado}">
+                    <option value=""></option>
+                    <option *ngFor="let item of arregloValoresReferencia" [value]="item.tipoValorReferenciaId">
+                        {{item.descripcion}}</option>
+                </select>
+                <div *ngIf="f.valorReferencia.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+            <div *ngIf="referencia" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Valor *</label>
+                <input formControlName="valor" maxlength="10" type="text" class="form-control" placeholder=""
+                [ngClass]="{'is-invalid':f.valor.errors && submitEnviado}">
+                <div *ngIf="f.valor.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+            <div *ngIf="referencia" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Fecha inicio *</label>
+                <input formControlName="fechaInicio" #fechaInicio (focusout)="validarfechaFinRef()" type="date" class="form-control"
+                [ngClass]="{'is-invalid':f.fechaInicio.errors && submitEnviado}">
+                <div *ngIf="f.fechaInicio.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+
+            </div>
+            <div *ngIf="referencia" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Fecha fin *</label>
+                <input formControlName="fechaFin" [min]="f.fechaInicio.value" #fechaFin type="date" class="form-control"
+                [ngClass]="{'is-invalid':f.fechaFin.errors && submitEnviado}">
+                <div *ngIf="f.fechaFin.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+
+            </div>
+            <div *ngIf="nuevatablaISR" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label for="exampleFormControlSelect1">Periodicidad pago *</label>
+                <select formControlName="PeriodicidadPago" class="form-control"
+                [ngClass]="{'is-invalid':f.PeriodicidadPago.errors && submitEnviado}">
+                    <option value=""></option>
+                    <option *ngFor="let item of arregloPeriodicidad" [value]="item.periodo">{{item.tabla}}</option>
+                </select>
+                <div *ngIf="f.PeriodicidadPago.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+            <div *ngIf="nuevatablaISR" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Límite inferior *</label>
+                <input formatos [numerosDecimales]="true" maxlength="10" formControlName="limiteInferior" type="text" class="form-control" placeholder=""
+                [ngClass]="{'is-invalid':f.limiteInferior.errors && submitEnviado}">
+                <div *ngIf="f.limiteInferior.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+
+            </div>
+            <div *ngIf="nuevatablaISR" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Límite superior *</label>
+                <input formatos [numerosDecimales]="true" maxlength="10" formControlName="limiteSuperior" type="text" class="form-control" placeholder=""
+                [ngClass]="{'is-invalid':f.limiteSuperior.errors && submitEnviado}">
+                <div *ngIf="f.limiteSuperior.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+            <div *ngIf="nuevatablaISR" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Cuota fija *</label>
+                <input formatos [numerosDecimales]="true" maxlength="10" formControlName="cuotaFija" type="text" class="form-control" placeholder=""
+                [ngClass]="{'is-invalid':f.cuotaFija.errors && submitEnviado}">
+                <div *ngIf="f.cuotaFija.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+
+            </div>
+
+            <div *ngIf="nuevatablaISR" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Porcentaje excedente *</label>
+                <input formControlName="porcExcedenteLimInf" maxlength="6" type="text" class="form-control" 
+                [ngClass]="{'is-invalid':(submitEnviado && f.porcExcedenteLimInf.errors?.required) || (f.porcExcedenteLimInf.errors?.pattern && f.porcExcedenteLimInf.touched)}"
+                    placeholder="">
+                <div *ngIf="submitEnviado && f.porcExcedenteLimInf.errors?.required" class="invalid-feedback">
+                    Campo requerido
+                </div>
+                <div *ngIf="f.porcExcedenteLimInf.errors?.pattern && f.porcExcedenteLimInf.touched" class="invalid-feedback">
+                    Porcentaje excedente no es válido
+                </div>
+            </div>
+
+            <div *ngIf="nuevatablaISR" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Fecha inicio *</label>
+                <input formControlName="fechaInicio" #fechaInicio (focusout)="validarfechaFinRef()" type="date" class="form-control isr"
+                [ngClass]="{'is-invalid':f.fechaInicio.errors && submitEnviado}">
+                <div *ngIf="f.fechaInicio.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+
+            </div>
+            <div *ngIf="nuevatablaISR" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Fecha fin *</label>
+                <input formControlName="fechaFin" [min]="f.fechaInicio.value" #fechaFin type="date" class="form-control isr"
+                [ngClass]="{'is-invalid':f.fechaFin.errors && submitEnviado}">
+                <div *ngIf="f.fechaFin.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+
+            </div>
+
+            <div *ngIf="nuevatablaSubsidio" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label for="exampleFormControlSelect1">Periodicidad pago *</label>
+                <select formControlName="PeriodicidadPago" class="form-control"
+                [ngClass]="{'is-invalid':f.PeriodicidadPago.errors && submitEnviado}">
+                    <option value=""></option>
+                    <option *ngFor="let item of arregloPeriodicidad" [value]="item.periodo">{{item.tabla}}</option>
+                </select>
+                <div *ngIf="f.PeriodicidadPago.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+            <div *ngIf="nuevatablaSubsidio" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Límite inferior *</label>
+                <input formatos [numerosDecimales]="true" maxlength="10" formControlName="limiteInferior" type="text" class="form-control" placeholder=""
+                [ngClass]="{'is-invalid':f.limiteInferior.errors && submitEnviado}">
+                <div *ngIf="f.limiteInferior.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+            <div *ngIf="nuevatablaSubsidio" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Límite superior *</label>
+                <input formatos [numerosDecimales]="true" maxlength="10" formControlName="limiteSuperior" type="text" class="form-control" placeholder=""
+                [ngClass]="{'is-invalid':f.limiteSuperior.errors && submitEnviado}">
+                <div *ngIf="f.limiteSuperior.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+
+            </div>
+            <div *ngIf="nuevatablaSubsidio" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Monto subsidio *</label>
+                <input formatos [numerosDecimales]="true" maxlength="10" formControlName="montoSubsidio" type="text" class="form-control" placeholder=""
+                [ngClass]="{'is-invalid':f.montoSubsidio.errors && submitEnviado}">
+                <div *ngIf="f.montoSubsidio.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+
+            <div *ngIf="nuevatablaSubsidio" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Fecha inicio *</label>
+                <input formControlName="fechaInicio" #fechaInicio (focusout)="validarfechaFinRef()" type="date" class="form-control"
+                [ngClass]="{'is-invalid':f.fechaInicio.errors && submitEnviado}">
+                <div *ngIf="f.fechaInicio.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+
+            </div>
+            <div *ngIf="nuevatablaSubsidio" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Fecha fin *</label>
+                <input formControlName="fechaFin" [min]="f.fechaInicio.value" #fechaFin type="date" class="form-control"
+                [ngClass]="{'is-invalid':f.fechaFin.errors && submitEnviado}">
+                <div *ngIf="f.fechaFin.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+
+            </div>
+
+            <div *ngIf="nuevoaplicableISN" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label for="exampleFormControlSelect1">Entidad federativa *</label>
+                <select formControlName="PeriodicidadPago" class="form-control"
+                [ngClass]="{'is-invalid':f.PeriodicidadPago.errors && submitEnviado}">
+                    <option value=""></option>
+                    <option *ngFor="let item of arregloPeriodicidad" [value]="item.estadoId">{{item.estado}}</option>
+                </select>
+                <div *ngIf="f.PeriodicidadPago.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+            <div *ngIf="nuevoaplicableISN" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Límite inferior *</label>
+                <input formatos [numerosDecimales]="true" maxlength="10" formControlName="limiteInferior" type="text" class="form-control" placeholder=""
+                [ngClass]="{'is-invalid':f.limiteInferior.errors && submitEnviado}">
+                <div *ngIf="f.limiteInferior.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+
+            </div>
+            <div *ngIf="nuevoaplicableISN" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Límite superior *</label>
+                <input formatos [numerosDecimales]="true" maxlength="10" formControlName="limiteSuperior" type="text" class="form-control" placeholder=""
+                [ngClass]="{'is-invalid':f.limiteSuperior.errors && submitEnviado}">
+                <div *ngIf="f.limiteSuperior.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+
+            </div>
+            <div *ngIf="nuevoaplicableISN" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Cuota fija *</label>
+                <input formatos [numerosDecimales]="true" maxlength="10" formControlName="cuotaFija" type="text" class="form-control" placeholder=""
+                [ngClass]="{'is-invalid':f.cuotaFija.errors && submitEnviado}">
+                <div *ngIf="f.cuotaFija.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>    
+            </div>
+            <div *ngIf="nuevoaplicableISN" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Tasa *</label>
+                <input formatos [numerosDecimales]="true" maxlength="6" formControlName="tasa" type="text" class="form-control" placeholder=""
+                [ngClass]="{'is-invalid':f.tasa.errors && submitEnviado}">
+                <div *ngIf="submitEnviado && f.tasa.errors?.required" class="invalid-feedback">
+                    Campo requerido
+                </div> 
+                <div *ngIf="f.tasa.errors?.pattern && f.tasa.touched" class="invalid-feedback">
+                    La tasa no es válida
+                </div>
+
+            </div>
+            <div *ngIf="nuevoaplicableISN" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Marco jurídico *</label>
+                <input formControlName="referenciaMarcoJuridico" type="text" class="form-control" placeholder=""
+                [ngClass]="{'is-invalid':f.referenciaMarcoJuridico.errors && submitEnviado}">
+                <div *ngIf="f.referenciaMarcoJuridico.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div> 
+
+            </div>
+
+            <div *ngIf="nuevoaplicableISN" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Fecha inicio *</label>
+                <input formControlName="fechaInicio" #fechaInicio (focusout)="validarfechaFinRef()" type="date" class="form-control"
+                [ngClass]="{'is-invalid':f.fechaInicio.errors && submitEnviado}">
+                <div *ngIf="f.fechaInicio.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+
+            </div>
+            <div *ngIf="nuevoaplicableISN" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Fecha fin *</label>
+                <input formControlName="fechaFin" [min]="f.fechaInicio.value" #fechaFin type="date" class="form-control"
+                [ngClass]="{'is-invalid':f.fechaFin.errors && submitEnviado}">
+                <div *ngIf="f.fechaFin.errors && submitEnviado" class="invalid-feedback">
+                    Campo requerido
+                </div>
+
+            </div>
+
+            <div *ngIf="catEstatus" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Estatus</label>
+                <select name="" class="form-control" formControlName="esActivo">
+                    <option value="true">Activo</option>
+                    <option value="false">Inactivo</option>
+                </select>
+            </div>
+            <div *ngIf="percepcion" class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6"></div>
+            <div *ngIf="percepcion" class=" input-group-sm mb-3 col-12 col-sm-3 col-lg-3">
+                <label class="contenedorInputCheckRadio"> Integra SDI
+                    <input formControlName="integraSdi" id="integraSdi" type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+            <div *ngIf="percepcion" class=" input-group-sm mb-3 col-12 col-sm-3 col-lg-3">
+                <label class="contenedorInputCheckRadio"> Integra ISR
+                    <input formControlName="integraIsr" id="integraIsr" type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+            <div *ngIf="percepcion" class=" input-group-sm mb-3 col-12 col-sm-3 col-lg-3">
+                <label class="contenedorInputCheckRadio"> Integra ISN
+                    <input formControlName="integraIsn" id="integraIsn" type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+            <div *ngIf="percepcion" class=" input-group-sm mb-3 col-12 col-sm-3 col-lg-3">
+                <label class="contenedorInputCheckRadio"> Es por defecto
+                    <input formControlName="porDefecto" id="porDefecto" type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+
+            <div *ngIf="regimen" class="input-group-sm mb-3 col-12 col-sm-12 col-md-12 col-lg-12">
+                <label>Persona *</label>
+
+                <label class="contenedorInputCheckRadio"> Física
+                    <input value="indPersonaFisica" formControlName="tipoPersona" type="radio" name="tipoPersona">
+                    <span class="radiomark"></span>
+                </label>
+
+                <label class="contenedorInputCheckRadio"> Moral
+                    <input value="indPersonaMoral" formControlName="tipoPersona" type="radio" name="tipoPersona">
+                    <span class="radiomark"></span>
+                </label>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+    <div class="text-center margin" style="margin-bottom: 20px;">
+
+        <button (click)="redirect(undefined)" (eventoFunciones)="redirect($event)" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+        <button type="submit" class="btn btn-primary button-fill">Guardar</button>
+    </div>
+
+</form>
+<div *ngIf="tablaISR">
+    <div class="card margen margen-tabla background-panel ">
+        <div class="form-group row margen">
+            <label class="titulo">TABLA ISR {{periodo | uppercase}}</label>
+        </div>
+        <div class="card-body">
+            <div id="table" class="table-editable ">
+
+                <table aria-hidden="true" *ngIf="!cargando && arregloTablaValores !== undefined" class="table table-hover">
+                    <tr>
+                        <th id="" class="text-center" scope="col">Límite inferior</th>
+                        <th id="" class="text-center" scope="col">Límite superior</th>
+                        <th id="" class="text-center" scope="col">Cuota fija</th>
+                        <th id="" class="text-center" scope="col">Excedente %</th>
+                        <th id="" class="text-center" scope="col">Fecha Inicio</th>
+                        <th id="" class="text-center" scope="col">Fecha Fin</th>
+                    </tr>
+                    <tr *ngFor="let valores of arregloTablaValores; let tarifaPeriodicaIsrId = index">
+                        <td class="td-center">
+                            <span (keypress)="soloNumeros($event)" (keyup)="changeValue(tarifaPeriodicaIsrId, 'limiteInferior', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'limiteInferior', $event)" contenteditable="true" >{{valores.limiteInferior}}</span>
+                        </td>
+                        <td class="td-center">
+                            <span contenteditable="true" (keypress)="soloNumeros($event)" (keyup)="changeValue(tarifaPeriodicaIsrId, 'limiteSuperior', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'limiteSuperior', $event)">{{valores.limiteSuperior}}</span>
+                        </td>
+                        <td class="td-center">
+                            <span contenteditable="true" (keypress)="soloNumeros($event)" (keyup)="changeValue(tarifaPeriodicaIsrId, 'cuotaFija', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'cuotaFija', $event)">{{valores.cuotaFija}}</span>
+                        </td>
+                        <td class="td-center">
+                            <span contenteditable="true" (keypress)="soloNumeros($event)" (keyup)="changeValue(tarifaPeriodicaIsrId, 'porcExcedenteLimInf', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'porcExcedenteLimInf', $event)">{{valores.porcExcedenteLimInf}}</span>
+                        </td>
+                        <td class="td-center">
+                            <input #isr id="isr" type="date" [value]="valores.fechaInicio" (keydown)="changeValue(tarifaPeriodicaIsrId, 'fechaInicio', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'fechaInicio', $event)">
+                        </td>
+                        <td class="td-center">
+                            <input #isr id="isr" type="date" [value]="valores.fechaFin" (keydown)="changeValue(tarifaPeriodicaIsrId, 'fechaFin', $event)" (blur)="updateList(tarifaPeriodicaIsrId, 'fechaFin', $event)">
+                        </td>
+
+                    </tr>
+
+                </table>
+                <div *ngIf="!cargando && arregloTablaValores === undefined" class="alert col text-center">
+                    <strong>En este momento no existen registros</strong>
+                </div>
+                <div *ngIf="cargando" class="col text-center mb-5">
+                    <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center margin" style="margin-bottom: 20px;">
+
+        <button (click)="redirect(undefined)" (eventoFunciones)="redirect($event)" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+        <button *ngIf="valFecha" (click)="enviarPeticion()" class="btn btn-primary button-fill">Guardar</button>
+        <button *ngIf="!valFecha" (click)="enviarPeticion()" class="btn btn-primary button-fill disabled">Guardar</button>
+    </div>
+
+</div>
+<div *ngIf="aplicableISN">
+    <div class="card margen margen-tabla background-panel ">
+        <div class="form-group row margen">
+            <label class="titulo">IMPUESTO SOBRE NÓMINA {{estado | uppercase}}</label>
+        </div>
+        <div class="card-body">
+            <div id="table" class="table-editable ">
+                <table aria-hidden="true" *ngIf="!cargando && arregloTablaValores !== undefined" class="table table-hover">
+                    <tr>
+                        <th id="" class="text-center" scope="col">Límite inferior</th>
+                        <th id="" class="text-center" scope="col">Límite superior</th>
+                        <th id="" class="text-center" scope="col">Cuota fija</th>
+                        <th id="" class="text-center" scope="col">Excedente %</th>
+                        <th id="" class="text-center" scope="col">Fecha Inicio</th>
+                        <th id="" class="text-center" scope="col">Fecha Fin</th>
+
+                    </tr>
+
+                    <tr *ngFor="let valores of arregloTablaValores; let tasaAplicableIsnId = index">
+                        <td>
+                            <span (keypress)="soloNumeros($event)" (keyup)="changeValue(tasaAplicableIsnId, 'limiteInferior', $event)" (blur)="updateList(tasaAplicableIsnId, 'limiteInferior', $event)" contenteditable="true">{{valores.limiteInferior}}</span>
+                        </td>
+                        <td>
+                            <span contenteditable="true" (keypress)="soloNumeros($event)" (keyup)="changeValue(tasaAplicableIsnId, 'limiteSuperior', $event)" (blur)="updateList(tasaAplicableIsnId, 'limiteSuperior', $event)">{{valores.limiteSuperior}}</span>
+                        </td>
+                        <td>
+                            <span contenteditable="true" (keypress)="soloNumeros($event)" (keyup)="changeValue(tasaAplicableIsnId, 'cuotaFija', $event)" (blur)="updateList(tasaAplicableIsnId, 'cuotaFija', $event)">{{valores.cuotaFija}}</span>
+                        </td>
+                        <td>
+                            <span contenteditable="true" (keypress)="soloNumeros($event)" (keyup)="changeValue(tasaAplicableIsnId, 'tasa', $event)" (blur)="updateList(tasaAplicableIsnId, 'tasa', $event)">{{valores.tasa}}</span>
+                        </td>
+                        <td>
+                            <input #isn id="isn" type="date" [value]="valores.fechaInicio" (keydown)="changeValue(tasaAplicableIsnId, 'fechaInicio', $event)" (blur)="updateList(tasaAplicableIsnId, 'fechaInicio', $event)">
+                        </td>
+                        <td>
+                            <input #isn id="isn" type="date" [value]="valores.fechaFin" (keydown)="changeValue(tasaAplicableIsnId, 'fechaFin', $event)" (blur)="updateList(tasaAplicableIsnId, 'fechaFin', $event)">
+                        </td>
+                    </tr>
+
+                </table>
+                <div *ngIf="!cargando && arregloTablaValores === undefined" class="alert col text-center">
+                    <strong>En este momento no existen registros</strong>
+                </div>
+                <div *ngIf="cargando" class="col text-center mb-5">
+                    <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center margin" style="margin-bottom: 20px;">
+
+        <button (click)="redirect(undefined)" (eventoFunciones)="redirect($event)" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+        <button *ngIf="valFecha" (click)="enviarPeticion()" class="btn btn-primary button-fill">Guardar</button>
+        <button *ngIf="!valFecha" (click)="enviarPeticion()" class="btn btn-primary button-fill disabled">Guardar</button>
+    </div>
+
+</div>
+
+<div *ngIf="subsidioISR">
+    <div class="card margen margen-tabla background-panel ">
+        <div class="form-group row margen">
+            <label class="titulo">TABLA SUBSIDIO ISR {{periodo | uppercase}}</label>
+        </div>
+        <div class="card-body">
+            <div id="table" class="table-editable ">
+
+                <table aria-hidden="true" *ngIf="!cargando && arregloTablaValores !== undefined" class="table table-hover">
+                    <tr>
+                        <th id="" class="text-center td-center" scope="col">Límite inferior</th>
+                        <th id="" class="text-center td-center" scope="col">Límite superior</th>
+                        <th id="" class="text-center td-center" scope="col">Cantidad de subsidio para el empleo</th>
+                        <th id="" class="text-center" scope="col">Fecha Inicio</th>
+                        <th id="" class="text-center" scope="col">Fecha Fin</th>
+                    </tr>
+                    <tr *ngFor="let valores of arregloTablaValores; let tarifaPeriodicaSubsidioId = index">
+                        <td class="td-center">
+                            <span (keypress)="soloNumeros($event)" (keyup)="changeValue(tarifaPeriodicaSubsidioId, 'limiteInferior', $event)" (blur)="updateList(tarifaPeriodicaSubsidioId, 'limiteInferior', $event)" contenteditable="true">{{valores.limiteInferior}}</span>
+                        </td>
+                        <td class="td-center">
+                            <span contenteditable="true" (keypress)="soloNumeros($event)" (keyup)="changeValue(tarifaPeriodicaSubsidioId, 'limiteSuperior', $event)" (blur)="updateList(tarifaPeriodicaSubsidioId, 'limiteSuperior', $event)">{{valores.limiteSuperior}}</span>
+                        </td>
+                        <td class="td-center">
+                            <span contenteditable="true" (keypress)="soloNumeros($event)" (keyup)="changeValue(tarifaPeriodicaSubsidioId, 'montoSubsidio', $event)" (blur)="updateList(tarifaPeriodicaSubsidioId, 'montoSubsidio', $event)">{{valores.montoSubsidio}}</span>
+                        </td>
+                        <td class="td-center">
+                            <input #isr id="isr" type="date" [value]="valores.fechaInicio" (keydown)="changeValue(tarifaPeriodicaSubsidioId, 'fechaInicio', $event)" (blur)="updateList(tarifaPeriodicaSubsidioId, 'fechaInicio', $event)">
+                        </td>
+                        <td class="td-center">
+                            <input #isr id="isr" type="date" [value]="valores.fechaFin" (keydown)="changeValue(tarifaPeriodicaSubsidioId, 'fechaFin', $event)" (blur)="updateList(tarifaPeriodicaSubsidioId, 'fechaFin', $event)">
+                        </td>
+
+                    </tr>
+
+                </table>
+                <div *ngIf="!cargando && arregloTablaValores === undefined" class="alert col text-center">
+                    <strong>En este momento no existen registros</strong>
+                </div>
+                <div *ngIf="cargando" class="col text-center mb-5">
+                    <img width="60px" height="60px" src="assets/imgs/loading_nomina.gif" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center margin" style="margin-bottom: 20px;">
+
+        <button (click)="redirect(undefined)" (eventoFunciones)="redirect($event)" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+        <button *ngIf="valFecha" (click)="enviarPeticion()" class="btn btn-primary button-fill">Guardar</button>
+        <button *ngIf="!valFecha" (click)="enviarPeticion()" class="btn btn-primary button-fill disabled">Guardar</button>
+    </div>
+
+</div>

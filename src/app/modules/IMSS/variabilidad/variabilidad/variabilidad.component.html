@@ -1,0 +1,150 @@
+<div class="row margen titulosfijos">
+    <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
+        <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa float-left"><button disabled>
+            <img src="assets/imgs/menu.png" alt="" srcset="">
+        </button>
+        </div>  
+        <li class="float-left"><a routerLinkActive="active"  class="nav-link" data-toggle="tab"  role="tab" 
+            (click)="inicio()"> {{modulo}}</a>
+        </li>
+        <li style="padding-top: 10PX;" class="float-left">
+            {{subModulo}} 
+        </li>
+    </ul>
+</div>
+<div class="background-ajustar" appTamanioVentana [pixeles]="100">
+<hr>
+
+<form [formGroup]="myForm" *ngIf="fromPromediar"  class="form-desing">
+
+    <div class="form-group row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <div class="background-panel margen">
+                <br>
+                <div class="form-group row margen">
+                    <label class="titulo">CALCULAR PROMEDIO DE VARIABLES</label>
+                </div>
+                <div class="form-group row margen">
+
+                    <div class="  input-group-sm mb-3 col-10">
+                        <label>Razón social </label>
+                        <input formControlName="razonSocial" maxlength="250" type="text" class="form-control disabled bg-light">
+
+                    </div>
+
+                    <div *ngIf="conPromedios" class="  input-group-sm mb-3 col-10">
+                        <label placement="top" [mdbTooltip]="'bimestre' | tooltip">Bimestre a calcular *</label>
+                        <input formControlName="bimestre" maxlength="300" type="text" class="form-control disabled bg-light">
+
+                    </div>
+                    <div *ngIf="sinPromedios" class=" input-group-sm mb-3 col-10">
+                        <label for="exampleFormControlSelect1">Bimestre a calcular *</label>
+                        <select formControlName="bimestre" class="form-control">
+                            <option value="1">1er Bimestre</option>
+                            <option value="2">2do Bimestre</option>
+                            <option value="3">3er Bimestre</option>
+                            <option value="4">4to Bimestre</option>
+                            <option value="5">5to Bimestre</option>
+                            <option value="6">6to Bimestre</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group-sm mb-3 col-10">
+                        <label placement="top" [mdbTooltip]="'dias' | tooltip">Días a promediar *</label>
+                        <input formControlName="diaspromediar" [class.is-invalid]="(f.diaspromediar.errors?.required && f.diaspromediar.touched) || (f.diaspromediar.errors?.min )" type="text" class="form-control">
+                        <div *ngIf="f.diaspromediar.errors?.required && f.diaspromediar.touched" class="invalid-feedback">
+                            Campo requerido
+                        </div>
+
+                    </div>
+
+                    <div class="  input-group-sm mb-3 col-10">
+                        <label>Fecha de aplicación *</label>
+                        <input formControlName="fecha" type="text" class="form-control disabled bg-light">
+
+                    </div>
+
+                </div>
+
+                <br>
+                <div class="text-center margin" style="margin-bottom: 20px;">
+
+                    <button type="button" (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+
+                    <button (click)="calculoVariabilidad()" *ngIf="calcularPromedio"  class="btn btn-primary button-fill">Calcular</button>
+                    <button (click)="recalcularVariabilidad()" *ngIf="recalcularPromedio"  class="btn btn-primary button-fill">Recalcular</button>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+<div class="scrooll-design" style="margin-top: -22px;" *ngIf="listaVariabilidad">
+    <div class="margen ">
+
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="altas" role="tabpanel" aria-labelledby="home-tab">
+
+                <div class="mt-2">
+
+                    <div class="form-group margen row " *ngIf="listaVariable"><label class="titulo">BÚSQUEDA</label></div>
+                    <div class="form group row margen" *ngIf="listaVariable">
+                        <div class=" input-group-sm mb-3 col-3 ">
+                            <input appSolonumeros  type="text" maxlength="4" class="form-control" [(ngModel)]="anioFiltro" id="anioFiltroVS" placeholder="Filtrar por año">
+                        </div>
+                        <div class=" input-group-sm mb-3 col-3 ">
+                            <input appSolonumeros type="text" class="form-control" [(ngModel)]="bimestre" id="bimestreVS" placeholder="Filtrar por bimestre">
+
+                        </div>
+
+                        <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
+                            <button type="button" id="btnFiltrarVariabilidad" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="row margen">
+                        <div class="col titulo" >
+                            <label>RESULTADOS</label>
+                        </div>
+                        <div class="row text-right margin botonmultiseleccion" *ngIf="listaVariable">
+                            <button (click)="promedioVariabilidad()" type="button" class="btn heartbeathand btn-light button-outlet mr-2"><span>Promediar variables</span>
+                            </button>
+                        </div>
+                        <div class="row text-right margin botonmultiseleccion" *ngIf="listaPromedio">
+                            <button (click)="desgargarArchivo(undefined)" type="button" class="btn heartbeathand btn-light button-outlet mr-2"><span>Descargar reporte</span>
+                          </button>
+
+                        </div>
+
+                    </div>
+
+                    
+                    <div class="row margen-tabla background-panel class_promedio class-botones" *ngIf="listaVariable">
+                        <app-tablapaginado [datos]="arreglotabla" [descargar]="true" [recalcular] = "true" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
+                    </div>
+
+                    
+                    <div class="row margen-tabla background-panel class_promedio class-botones" *ngIf="listaPromedio">
+                        <app-tablapaginado [datos]="arreglotablaListaEmpleadosPromedio" [cargando]="cargando"></app-tablapaginado>
+                    </div>
+                    <br>
+
+                    <div class="text-center margin" style="margin-bottom: 20px;" *ngIf="listaPromedio">
+
+                        <button type="button" (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+
+                        <button (click)="aplicarPromedio()" class="btn btn-primary button-fill">Aplicar</button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>

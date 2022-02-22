@@ -1,0 +1,168 @@
+
+    <div class="row ml-2 mr-2 titulosfijos" style="background-color: transparent;">
+        <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
+            <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa float-left"><button disabled>
+                <img src="assets/imgs/menu.png" alt="" srcset="">
+            </button>
+            </div>  
+            <li class="float-left"><a routerLinkActive="active"  routerLink="/inicio" class="nav-link" data-toggle="tab"  role="tab" 
+                > {{modulo}}</a>
+            </li>
+            <li style="padding-top: 10PX;" class="float-left">
+                {{subModulo}} 
+
+            </li>
+        </ul>
+    </div>
+
+    <br>
+    <div class="background-ajustar" appTamanioVentana [pixeles]="100">
+
+     <div class="margen">
+
+
+            <div id="accordion" class="acordion_desplegable show">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            <button (click)="colapsarmtd()" style="width: 90%;" class="btn btn-link"
+                                data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
+                                aria-controls="collapseOne">
+                                Calendario
+                            </button>
+                            <i aria-hidden="true" (click)="colapsarmtd()" *ngIf="colapsar == false"
+                                style="float: right; color:#00C1AF;margin-top: 7px;" data-toggle="collapse"
+                                data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                                class="icon_24flechaarriba bg-primary"></i>
+                            <i aria-hidden="true" (click)="colapsarmtd()" *ngIf="colapsar == true"
+                                style="float: right; color:#00C1AF;margin-top: 7px;" data-toggle="collapse"
+                                data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                                class="icon_24flechaabajo bg-primary "></i>
+                        </h5>
+                    </div>
+
+                    <div id="collapseOne" class="collapse show " aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+
+                            <div class="row">
+                                <div id="eventoscheckbox" class="col-2">
+                                    <label class="primary">GESTIONAR EVENTOS</label>
+                                    <div>
+                                        <label class="contenedorInputCheckRadio aniversarios">Prima dominical
+                                            <input id="e9" (change)="cambiaValor()" checked type="checkbox" name="">
+                                            <span class="checkmark aniversarios"></span>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <label class="contenedorInputCheckRadio cumpleanios">Retardos
+                                            <input id="e8" (change)="cambiaValor()" checked type="checkbox" name="">
+                                            <span class="checkmark cumpleanios"></span>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <label class="contenedorInputCheckRadio diaseconomicos">Días economicos
+                                            <input id="e2" (change)="cambiaValor()" checked type="checkbox" name="">
+                                            <span class="checkmark diaseconomicos"></span>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <label class="contenedorInputCheckRadio faltas">Faltas
+                                            <input id="e5" (change)="cambiaValor()" checked type="checkbox" name="">
+                                            <span class="checkmark faltas"></span>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <label class="contenedorInputCheckRadio horasextras">Horas extras
+                                            <input id="e13-14" (change)="cambiaValor()" checked type="checkbox" name="">
+                                            <span class="checkmark horasextras"></span>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <label class="contenedorInputCheckRadio incapacidades">Incapacidades
+                                            <input id="e3" (change)="cambiaValor()" checked type="checkbox" name="">
+                                            <span class="checkmark incapacidades"></span>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <label class="contenedorInputCheckRadio vacaciones">Vacaciones
+                                            <input id="e1" (change)="cambiaValor()" checked type="checkbox" name="">
+                                            <span class="checkmark vacaciones"></span>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <label class="contenedorInputCheckRadio diasdescansolaborados">Descanso laborado
+                                            <input id="e11" (change)="cambiaValor()" checked type="checkbox" name="">
+                                            <span class="checkmark diasdescansolaborados"></span>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <label class="contenedorInputCheckRadio diasdescansolaborados">Días festivos laborados
+                                            <input id="e16" (change)="cambiaValor()" checked type="checkbox" name="">
+                                            <span class="checkmark festivoslaborados"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-10">
+                                    <app-calendario [eventos]="eventos" (salida)="recibirTabla($event)">
+                                    </app-calendario>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="scrooll-design">
+            <div class="margen ">
+        
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="altas" role="tabpanel" aria-labelledby="home-tab">
+        
+                        <div class="mt-2">
+        
+                            <div class="form-group margen row "><label class="titulo">BÚSQUEDA</label></div>
+                            <div class="form group row margen">
+                                <div class=" input-group-sm mb-3 col-3 ">
+                                    <input [(ngModel)]="nombre" type="text" class="form-control" placeholder="Nombre" id="NombreEventoS">
+                                </div>
+                                <div class=" input-group-sm mb-3 col-3 ">
+                                    <input [(ngModel)]="apellidoPaterno" id="apellidoPaternoEventoS" type="text" class="form-control" placeholder="Primer apellido">
+                                </div>
+                                <div class=" input-group-sm mb-3 col-3 ">
+                                    <input [(ngModel)]="apellidoMaterno" id="apellidoMaternoEventoS" type="text" class="form-control" placeholder="Segundo apellido">
+                                </div>
+        
+                                <div class=" input-group-sm mb-3 col-3 ">
+                                    <select class="form-control" [(ngModel)]="tipoIncidenciaId" id="tipoIncidenciaIdS">
+                                        <option id="tipoIncidenciaId0S" value="0" selected>Evento</option>
+                                        <option id="tipoIncidenciaId1S" *ngFor="let item of arregloIncidenciaTipo" [value]="item.tipoIncidenciaId">{{item.descripcion}}</option>
+                                    </select>
+                                </div>
+                                <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
+                                    <button type="submit" id="btnFiltrarEventosXEmpleado" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
+                                </div>
+        
+        
+                            </div>
+        
+        
+                            <div class="row   margen-tabla background-panel " id="vetanaprincipaltabla">
+                                <app-tablapaginado [datos]="arreglotabla" [cargando]="cargando" (salida)="recibirTabla($event)">
+                                </app-tablapaginado>
+                            </div>
+        
+        
+                        </div>
+        
+                    </div>
+        
+                </div>
+        
+        
+            </div>
+        </div>
+
+
+</div>

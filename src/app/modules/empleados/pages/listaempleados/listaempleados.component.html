@@ -1,0 +1,99 @@
+<div class="row titulosfijos mb-5 ml-2 mr-2" style="background-color: transparent;">
+    <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
+        <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa float-left"><button disabled>
+            <img src="assets/imgs/menu.png" alt="" srcset="">
+        </button>
+        </div>  
+        <li class="float-left"><a routerLinkActive="active"  class="nav-link" data-toggle="tab"  role="tab" 
+            (click)="inicio()"> {{modulo}}</a>
+        </li>
+        <li style="padding-top: 10PX;" class="float-left">
+            {{subModulo}} 
+        </li>
+    </ul>
+</div>
+
+<div class="background-ajustar" appTamanioVentana [pixeles]="110">
+<div class="scrooll-design">
+    <div class="margen ">
+
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="altas" role="tabpanel" aria-labelledby="home-tab">
+
+                <div class="mt-2">
+
+                    <div class="form-group margen row "><label class="titulo">BÚSQUEDA</label></div>
+                    <div class="form group row margen">
+                        <div class=" input-group-sm mb-3 col-3 ">
+                            <input type="text" appAlfanumerico class="form-control" [(ngModel)]="personaId" placeholder="Número de empleado">
+                        </div>
+                        <div class=" input-group-sm mb-3 col-3 ">
+                            <input type="text" class="form-control" [(ngModel)]="nombre" id="nombreES" formatos [especial]="true" placeholder="Nombre">
+                        </div>
+                        <div class=" input-group-sm mb-3 col-3 ">
+                            <input type="text" class="form-control" [(ngModel)]="apellidoPaterno" id="apellidoPaternoES" formatos [especial]="true" placeholder="Primer apellido">
+                        </div>
+                        <div class=" input-group-sm mb-3 col-3 ">
+                            <input type="text" class="form-control" [(ngModel)]="apellidoMaterno" id="apellidoMaternoES" formatos [especial]="true" placeholder="Segundo apellido">
+                        </div>
+                        <div class=" input-group-sm mb-3 col-3 ">
+                            <select class="form-control" [(ngModel)]="idarea" id="idareaS">
+                                <option value="">Seleccionar área</option>
+                                <option *ngFor="let item of arregloAreas " [value]="item.areaId">{{item.descripcion}}</option>
+                            </select>
+                        </div>
+                        <div class=" input-group-sm mb-3 col-3 ">
+                            <select class="form-control" [(ngModel)]="idPuesto" id="idPuestoS">
+                                <option value="">Seleccionar puesto</option>
+                                <option *ngFor="let item of arregloPuestos" [value]="item.puestoId">{{item.descripcion}}</option>
+                            </select>
+                        </div>
+                        <div class=" input-group-sm mb-3 col-3 ">
+                            <select class="form-control" [(ngModel)]="estatus" id="statusES">
+                                <option id="statusE0S" value="">Estatus</option>
+                                <option id="statusE1S" value="true">Activo</option>
+                                <option id="statusE2S" value="false">Inactivo</option>
+                            </select>
+                        </div>
+                        <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
+                            <button type="button" id="btnFiltrarEmpleados" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="row margen">
+                        <div class="col titulo">
+                            <label>RESULTADOS</label>
+                        </div>
+                        <div class="row text-right margen botonmultiseleccion">
+                            <div class="col-12">
+                                <button *ngIf="esRegistrar" style="margin-left: 10px;" type="button" class="btn btn-light button-outlet" (click)="agregar()">
+                                    <i aria-hidden="true" class="icon_24agregar primary-bg"></i> Agregar empleado
+                                  </button>
+                              </div>
+                          </div>
+                          <div class="row text-right botonmultiseleccion">
+                            <div class="col-12">
+                                <button *ngIf="esDescargar" type="button" class="btn btn-light button-outlet" (click)="descargarEmpleados()">
+                                    Descargar empleados
+                                  </button>
+                            </div>
+                          </div>
+                    </div>
+
+                    <div class="row   margen-tabla background-panel ">
+                        <app-tablapaginado [datos]="arreglotabla" [imagen]="true" [icondefault]="'usuario'" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
+                    </div>
+  
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+</div>

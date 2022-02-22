@@ -1,0 +1,136 @@
+<div class="row margen">
+    <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
+        <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa float-left"><button disabled>
+            <img src="assets/imgs/menu.png" alt="" srcset="">
+        </button>
+        </div>  
+        <li class="float-left"><a routerLinkActive="active"  class="nav-link" data-toggle="tab"  role="tab" 
+            (click)="inicio()"> {{modulo}}</a>
+        </li>
+        <li style="padding-top: 10PX;" class="float-left">
+            {{subModulo}} 
+        </li>
+    </ul>
+</div>
+
+<hr>
+
+<form [formGroup]="myForm" (ngSubmit)="enviarPeticion()" *ngIf="fromEmpleado">
+
+    <input type="hidden">
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-10">
+            <div class="background-panel margen">
+                <br>
+                <div class="form-group row margen">
+                    <label class="titulo">INFORMACIÓN PARA CARGA MASIVA DE EMPLEADOS</label>
+                </div>
+                <div class="form-group row margen">
+                    <div class="mb-3 col-12 col-sm-12 col-lg-12">
+                        <label>Selecciona y descarga el formato que requieras cargar, llénalo y sube el archivo. Recuerda llenar todos los campos obligatorios.</label>                        
+                    </div>
+                    <div class=" input-group-sm mb-3 col-11 col-sm-12 col-md-10 col-lg-10">
+                        
+                     <div class=" input-group-sm mb-3">
+                        <select formControlName="tipoCargaId" type="text" class="form-control" [ngClass]="{'is-invalid':f.tipoCargaId.errors && submitEnviado}">
+                <option value="0" selected ></option>
+                <option *ngFor="let item of arregloTipoCarga"  [value]="item.tipoCargaId">{{item.descripcion}}</option>
+              </select>
+              </div>
+                        <div *ngIf="f.tipoCargaId.errors" class="invalid-feedback">Campo requerido
+                        </div>
+                        <br>
+
+                        <nav aria-label="cosmonaut">
+                            <a *ngIf="esDescargar || esRegistrar" (click)="iniciarDescarga()" class="botonestilo  estiloextralink"><i aria-hidden="true"
+                            class="fas fa-download mr-1"></i> Descargar formato
+                    </a>
+                        </nav>
+                        <br>
+                    </div>
+
+                    <div class="input-group-sm mb-3 col-12 col-sm-10 col-lg-10">
+                        <div class="mb-3">
+                        <label>Sube el formato de carga masiva con los datos modificados *</label>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="hidden" formControlName="documento" [ngClass]="{'is-invalid':f.documento.errors && submitEnviado}">
+                            <input #documento type="text" class="form-control disabled bg-light" [ngClass]="{'is-invalid':f.documento.errors && submitEnviado}">
+                            <div (click)="abrirDoc()" class="input-group-append" style="cursor: pointer;">
+                                <span style="font-size: small;" class="input-group-text dark" id="basic-addon2"><i aria-hidden="true" class="icon_upload"></i> Subir archivo</span>
+                            </div>
+                            <div *ngIf="f.documento.errors" class="invalid-feedback">
+                                Campo requerido
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="text-right margen" style="margin-bottom: 20px;">
+                    <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (click)="cancelar()">Cancelar</button>
+                    <button *ngIf="esDescargar || esRegistrar" type="submit" class="btn btn-primary button-fill agrandarloading">Continuar</button>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+
+
+</form>
+
+
+<div class="container" *ngIf="listaErrores">
+
+    <div class="row">
+        <div class="form group row margen">
+            <div class=" input-group-sm mb-3 col-12 col-md-8 col-lg-8">
+                <select placeholder="Estatus" name="" class="form-control" id="idEmpleadoMasiva" [(ngModel)]="idEmpleado">
+          <option value="0" selected>Estatus</option>
+          <option value="1" >Exitoso</option>
+          <option value="2" >No guardado - registro con error</option>
+        </select>
+            </div>
+            <div class=" input-group-sm mb-3 text-center col-12 col-sm-2 ">
+                <button type="button" id="btnFiltrarMasiva" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="row ">
+
+        <div class="col">
+
+            <div class="row margen">
+                <div class="col titulo">
+                    <label>RESULTADOS</label>
+                </div>
+
+                <div class="col text-right">
+                    <button type="button" class="btn btn-light button-outlet" (click)="agregar()">
+
+               Carga masiva de empleados
+            </button>
+                </div>
+            </div>
+            <div class="margen-tabla background-panel ">
+                <br>
+                <div class="row mt-3">
+
+                    <div class="col-12 text-left form-group  margen">
+                        <a class="botonestilo aparece-desktop estiloextralink" (click)="descargarEmpleados()"><i aria-hidden="true" 
+                    class="fas fa-download"></i> Descargar archivo con errores
+                  </a>
+                    </div>
+                </div>
+                <app-tablapaginado [datos]="arreglotabla" [cargando]="cargando"></app-tablapaginado>
+            </div>
+
+        </div>
+    </div>
+</div>

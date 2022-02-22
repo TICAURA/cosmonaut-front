@@ -1,0 +1,74 @@
+
+    <div class="row margen titulosfijos">
+        <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
+            <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa float-left" ><button disabled>
+                <img src="assets/imgs/menu.png" alt="" srcset="">
+            </button>
+            </div>  
+            <li class="float-left"><a routerLinkActive="active"  routerLink="/inicio" class="nav-link" data-toggle="tab"  role="tab" 
+                > {{modulo}}</a>
+            </li>
+            <li style="padding-top: 10PX;" class="float-left">
+                {{subModulo}} 
+            </li>
+        </ul>
+    </div>
+
+
+    <div class="background-ajustar" appTamanioVentana [pixeles]="100">  
+    <div class="scrooll-design">
+        <div class="margen">
+
+            <div id="accordionFiltro">
+
+                <div id="accordion">
+                    <div class="card">
+                        <div>
+                            <h5 class="mb-0">
+                                <button *ngIf="tamanio < 600" (click)="changeIconDown = !changeIconDown" style="width: 100%;" class="btn btn-link aparece-movil" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  <label class="titulo" style="    width: 80%;
+                float: left;
+                text-align: left;">BÚSQUEDA</label>
+
+                </button>
+                                <button *ngIf="tamanio >=600" class="btn btn-link aparece-desktop-inline-block">
+                  <label class="titulo">BÚSQUEDA</label>
+                </button>
+
+                            </h5>
+                        </div>
+
+                        <div id="collapseOne" class="collapse" [ngClass]="{'show':tamanio >600}" aria-labelledby="headingOne" data-parent="#accordion">
+                            <div class="card-body">
+                                <div class="form group row margen">
+                                    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
+                                        <select name="" id="id_catalogoAdminCat" class="form-control" [(ngModel)]="id_catalogo">
+                      <option  value = "0" selected>Seleccionar catálogo</option>
+                      <option *ngFor="let item of arreglo" [value]="item.listaCatalogosId">{{item.nombreCatalogo}}
+                      </option>
+                    </select>
+                                    </div>
+                                    <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
+                                        <button type="button" id="btoFiltarCatalogos" class="btn btn-primary button-outlet " (click)="filtrar()">Filtrar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="row margen">
+            <div class="col titulo">
+                <label>RESULTADOS</label>
+            </div>
+        </div>
+        <div class="row margen margen-tabla background-panel ">
+            <app-tablapaginado [datos]="arreglotabla" [editar]="esEditar" [cargando]="cargando" (salida)="recibirTabla($event)"></app-tablapaginado>
+        </div>
+
+    </div>
+</div>

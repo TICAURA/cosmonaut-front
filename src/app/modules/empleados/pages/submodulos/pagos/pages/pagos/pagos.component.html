@@ -1,0 +1,167 @@
+<div class="row col-11">
+    <div class="col-12 col-lg-12 col-xl-6 mb-3 mt-3 ">
+               <div class="row"><label class="titulo">DETALLE DE PAGO</label><i aria-hidden="true" *ngIf="!metodopagobool && !esKiosko" class="icon_24editar primary-bg" (click)="editandoMetodoPagoNew(undefined)" style="width: 10%;text-align: right; cursor: pointer;"></i></div>
+
+            <div class="row mb-4">
+                <article class="titulo  col">
+                    Método de pago
+                    <article>{{empleado?.metodoPagoId?.descripcion}}</article>
+                </article>
+            </div>
+            <div *ngIf="detalleCuenta" class="row mb-4">
+                <article class="titulo  col">
+                    Cuenta CLABE
+                    <article>{{cuentaBanco?.clabe}}</article>
+                </article>
+                <article class="titulo  col">
+                    Número de cuenta
+                    <article>{{cuentaBanco?.numeroCuenta}}</article>
+                </article>
+            </div>
+            <div *ngIf="detalleCuenta" class="row mt-4">
+                <article class="titulo  col">
+                    Banco
+                    <article>{{cuentaBanco?.bancoId?.nombreCorto}}</article>
+                </article>
+                <article class="titulo  col">
+                    Número de ID cliente
+                    <article>{{cuentaBanco?.numInformacion}}</article>
+                </article>
+            </div>
+    </div>
+    <div class="col-12 col-lg-12 col-xl-6 mb-3 mt-3 ">
+        <div class="row"><label class="titulo">DETALLE DE COMPENSACIÓN</label><i aria-hidden="true" *ngIf="!metodopagobool && !esKiosko" class="icon_24editar primary-bg" (click)="verDetalleCompensacionNew()" style="width: 10%;text-align: right; cursor: pointer;"></i></div>
+
+     <div class="row mb-4">
+         <article class="titulo  col">
+            Grupo de nómina
+             <article>{{empleado?.grupoNominaId?.nombre}}</article>
+         </article>
+     </div>
+     <div class="row mb-4">
+         <article class="titulo  col">
+            Tipo de compensación
+             <article>{{empleado.tipoCompensacionId?.descripcion}}</article>
+         </article>
+         <article *ngIf="!typeppp && sueldoBruto" class="titulo  col">
+            Sueldo bruto mensual
+             <article>{{empleado.sueldoBrutoMensual | currency:'$'}}</article>
+         </article>
+         <article *ngIf="!typeppp && sueldoNeto" class="titulo  col">
+            Sueldo neto mensual
+             <article>{{empleado.sueldoNetoMensual | currency:'$'}}</article>
+         </article>
+         <article *ngIf="typeppp" class="titulo  col">
+            Sueldo neto mensual mixto
+             <article>{{(empleado.pppSnm) | currency:'$'}}</article>
+         </article>
+     </div>
+     <div class="row mt-4">
+         <article *ngIf="!typeppp" class="titulo  col">
+            Salario Base de Cotización
+             <article>{{empleado.sbc | currency:'$'}}</article>
+         </article>
+         <article *ngIf="typeppp" class="titulo  col">
+            Salario Diario Integrado
+             <article>{{empleado.sbc | currency:'$'}}</article>
+         </article>
+     </div>
+</div>
+</div>    
+<div>        
+        <div class="col-12">
+            <div id="accordion" class="acordion_desplegable">
+                <div class="card" [ngClass]="{'cardselected':arreglopintar[2]}" placement="top"
+                    [mdbTooltip]="'percepciones' | tooltip">
+                    <div class="card-header" id="percepciones">
+                        <h4 class="mb-0">
+                            <button (click)="cambiarStatus(2)" class="btn btn-link collapsed" style="color: #04c1b0;" data-toggle="collapse"
+                                data-target="#collapsefour" aria-expanded="false" aria-controls="collapseThree">
+                                PERCEPCIONES
+                                <i aria-hidden="true" *ngIf="!arreglopintar[2]" data-toggle="collapse"
+                                    data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                                    class="icon_24flechaabajo bg-primary disabled"></i>
+                                <i aria-hidden="true" *ngIf="arreglopintar[2]" data-toggle="collapse"
+                                    data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                                    class="icon_24flechaarriba bg-primary disabled"></i>
+                            </button>
+                        </h4>
+                    </div>
+                    <div id="collapsefour" class="collapse" aria-labelledby="percepciones" data-parent="#accordion">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+
+                                    <div class="row margen">
+                                        <div class="col titulo">
+                                            <label>RESULTADOS</label>
+                                        </div>
+                                        <div *ngIf="!esKiosko" class="col text-right">
+                                            <button type="button" class="btn btn-light button-outlet"
+                                                (click)="agregarPer()">
+                                                <i aria-hidden="true" class="icon_24agregar primary-bg"></i> Agregar percepción
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="row margen margen-tabla background-panel">
+                                        <app-tablapaginado [datos]="arreglotablaPert" [editar]="!esKiosko"
+                                            [cargando]="cargandoPer" (salida)="recibirTablaPer($event)">
+                                        </app-tablapaginado>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" [ngClass]="{'cardselected':arreglopintar[3]}" placement="top"
+                    [mdbTooltip]="'deducciones' | tooltip">
+                    <div class="card-header" id="deducciones">
+                        <h4 class="mb-0">
+                            <button (click)="cambiarStatus(3)" class="btn btn-link collapsed primary" style="color: #04c1b0;" data-toggle="collapse"
+                                data-target="#collapseFive" aria-expanded="false" aria-controls="collapseThree">
+                                DEDUCCIONES 
+                                <i aria-hidden="true" *ngIf="!arreglopintar[3]" data-toggle="collapse"
+                                    data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                                    class="icon_24flechaabajo bg-primary disabled"></i>
+                                <i aria-hidden="true" *ngIf="arreglopintar[3]" data-toggle="collapse"
+                                    data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                                    class="icon_24flechaarriba bg-primary disabled"></i>
+                            </button>
+                        </h4>
+                    </div>
+                    <div id="collapseFive" class="collapse" aria-labelledby="deducciones" data-parent="#accordion">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+
+                                    <div class="row margen">
+                                        <div class="col titulo">
+                                            <label>RESULTADOS</label>
+                                        </div>
+                                        <div *ngIf="!esKiosko" class="col text-right">
+                                            <button type="button" class="btn btn-light button-outlet"
+                                                (click)="agregarDed()">
+                                                <i aria-hidden="true" class="icon_24agregar primary-bg"></i> Agregar deducción
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="row margen margen-tabla background-panel">
+                                        <app-tablapaginado [datos]="arreglotablaDedt" [editar]="!esKiosko"
+                                            [cargando]="cargandoDed" (salida)="recibirTablaDed($event)">
+                                        </app-tablapaginado>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+</div>
+<app-alertas></app-alertas>

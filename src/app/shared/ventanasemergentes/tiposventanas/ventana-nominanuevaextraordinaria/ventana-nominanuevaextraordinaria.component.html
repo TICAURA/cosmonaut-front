@@ -1,0 +1,111 @@
+<form [formGroup]="myForm" (ngSubmit)="enviarPeticion()">
+    <div class="form-group row">
+        <div class="input-group-sm mb-3 col-6">
+            <label for="exampleFormControlSelect1">Nombre de la nómina *</label>
+            <input formControlName="nombreNomina"  [class.is-invalid]="f.nombreNomina.errors && f.nombreNomina.touched" type="text" name=""  class="form-control">
+            <div *ngIf="f.nombreNomina.errors && f.nombreNomina.touched" class="invalid-feedback">
+                Campo requerido
+            </div>
+        </div>
+        <div class="input-group-sm mb-3 col-6">
+            <label for="exampleFormControlSelect1">Tipo de nómina *</label>
+            <select  [class.is-invalid]="f.tipoNominaId.errors && f.tipoNominaId.touched" formControlName="tipoNominaId" class="form-control disabled bg-light">
+                <option *ngFor="let item of arregloTipoNominas" [value]="item.tipoNominaId">
+                    {{item.descripcion}}
+                </option>
+            </select>
+            <div *ngIf="f.tipoNominaId.errors && f.tipoNominaId.touched" class="invalid-feedback">
+                Campo requerido
+            </div>
+        </div>
+<!--         <div class="input-group-sm mb-3 col-6">
+            <label for="exampleFormControlSelect1">Razón social *</label>
+            <select [class.is-invalid]="f.centrocClienteId.errors && f.centrocClienteId.touched" formControlName="centrocClienteId" class="form-control">
+                <option *ngFor="let item of arregloCompanias" [value]="item.centrocClienteId">
+                    {{item.nombre}}
+                </option>
+            </select>
+            <div *ngIf="f.centrocClienteId.errors && f.centrocClienteId.touched" class="invalid-feedback">
+                Campo requerido
+            </div>
+        </div> -->
+        <div class="input-group-sm mb-4 col-12 col-sm-6 col-lg-6">
+            <label for="nombre">Razón social *</label>
+            <input formControlName="centrocClienteId" [class.is-invalid]="f.centrocClienteId.errors && f.centrocClienteId.touched" type="text" class="form-control disabled bg-light">
+            <div *ngIf="f.centrocClienteId.errors && f.centrocClienteId.touched" class="invalid-feedback">
+                Campo requerido
+            </div>
+        </div>
+        <div class="input-group-sm mb-3 col-6">
+            <label for="exampleFormControlSelect1">Cuenta bancaria *</label>
+            <select [class.is-invalid]="f.clabe.errors && f.clabe.touched" formControlName="clabe" class="form-control">
+                <option *ngFor="let item of arregloCuentasBancarias" [value]="item.bancoId.bancoId">
+                   {{item.nombreCuenta}}
+                </option>
+            </select>
+            <div *ngIf="f.clabe.errors && f.clabe.touched" class="invalid-feedback">
+                Campo requerido
+            </div>
+        </div>
+        <div class="input-group-sm mb-3 col-6">
+            <div>
+                <label>Seleccionar *</label>
+                <div>
+
+                    <label class="contenedorInputCheckRadio">Todos los empleados
+                        <input formControlName="seleccionarempleados" #tipouno
+                             name="seleccionarempleados" type="radio"
+                           value = "1">
+                        <span class="radiomark"></span>
+                    </label>
+                    <label class="contenedorInputCheckRadio">Por grupo de nómina
+                        <input formControlName="seleccionarempleados" #tipodos
+                             name="seleccionarempleados" type="radio"
+                           value = "2">
+                        <span class="radiomark"></span>
+                    </label>
+                    <label class="contenedorInputCheckRadio">Por empleados
+                        <input formControlName="seleccionarempleados" #tipodos
+                             name="seleccionarempleados" type="radio"
+                           value = "3">
+                        <span class="radiomark"></span>
+                    </label>
+
+
+
+                </div>
+
+            </div>
+        </div>
+        <div *ngIf="mostrarAlgunosEmpleados == '3'" class="input-group-sm mb-3 col-6">
+            <label for="exampleFormControlSelect1">Empleados *</label>
+            <app-tag [datos]="arregloEmpleados" [llave]="'nombre'"  (salida)="recibirEtiquetas($event)"></app-tag>
+        </div>
+        <div *ngIf="mostrarAlgunosEmpleados == '2'" class="input-group-sm mb-3 col-6">
+            <label for="exampleFormControlSelect1">Grupo de nómina *</label>
+            <select [class.is-invalid]="f.grupoNomina.errors && f.grupoNomina.touched" formControlName="grupoNomina" class="form-control">
+                <option *ngFor="let item of arreglogruponominas" [value]="item.id">{{item.nombre}}</option>
+            </select>
+            <div  class="invalid-feedback">
+                Campo requerido
+            </div>
+        </div>
+        <div class="input-group-sm mb-3 col-6">
+            <label for="exampleFormControlSelect1">Moneda *</label>
+            <select [class.is-invalid]="f.monedaId.errors && f.monedaId.touched" formControlName="monedaId" class="form-control">
+                <option *ngFor="let item of arregloMonedas " [value]="item.monedaId">
+                    {{item.descripcion}}
+                </option>
+            </select>
+           <div *ngIf="f.monedaId.errors && f.monedaId.touched" class="invalid-feedback">
+               Campo obligatorio
+           </div>
+        </div>
+    </div>
+    <div class="text-right margin" style="margin-bottom: 20px;">
+
+        <button type="button" (click)="cancelar()" class="btn btn-primary button-outlet mr-2">Cancelar</button>
+        <button type="submit"  class="btn btn-primary button-fill">Guardar</button>
+    </div>
+
+</form>

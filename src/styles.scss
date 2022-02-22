@@ -1,0 +1,33 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500;700;900&display=swap');
+@import url('https://use.fontawesome.com/releases/v5.0.6/css/all.css');
+
+
+@import './styles/globals';
+@import './styles/modules/generalcomponents.scss';
+@import './styles//modules/animations.scss';
+@import './styles/icons/iconos.scss';
+@import './styles/pages/pages.scss';
+@import './styles/modules/modal.scss';
+@import './styles/modules/acordion_desing.scss';
+@import './styles//modules/imagenes.scss';
+@import './styles/modules/navinside.scss';
+@import './styles/modules/checkbox.scss';
+@import './styles/icons/icons_24px.scss';
+
+
+
+
+*{
+   font-weight: 500 !important;
+}
+
+
+
+
+
+
+
+
+

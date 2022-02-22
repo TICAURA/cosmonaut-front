@@ -1,0 +1,51 @@
+article{
+    font-size: medium;
+    font-weight: bold;
+    article{
+        font-size: smaller;
+        font-weight: normal;
+        color:gray;
+        
+    }
+}
+
+.fa, .fas {
+    font-weight: 600 !important;
+}
+
+.especialrow{
+    background: #e8e8e8;
+    margin: 12px 0;
+
+   
+}
+
+.estiloextralink{
+    display: inline-block !important;
+    color:#56dfd4 !important;
+    text-decoration: underline !important;
+    
+}
+
+.personalizado{
+    width: 130px;
+    background-color: #ffd400;
+    border: 0px solid #022538;
+    color: #0054bf;
+}
+
+
+
+.color-hiperlink{
+    color: #03a59c !important;
+    width: fit-content !important;
+    margin-right: 16px !important;
+    text-decoration: underline !important;
+    width: fit-content;
+    i{
+        color: #03a59c;
+    }
+    span{
+        margin-left: auto;
+    }
+}

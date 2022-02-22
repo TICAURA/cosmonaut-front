@@ -1,0 +1,131 @@
+
+    <div class="row margen titulosfijos">
+        <ul class="nav nav-tabs" role="tablist"  id="navegadorTabsEncab">
+            <div (click)="configuracionPrd.menu = !configuracionPrd.menu" class="col-2 menu-hamburgesa float-left" ><button disabled>
+                <img src="assets/imgs/menu.png" alt="" srcset="">
+            </button>
+            </div>  
+            <li class="float-left"><a routerLinkActive="active"  routerLink="/inicio" class="nav-link" data-toggle="tab"  role="tab" 
+                > {{modulo}}</a>
+            </li>
+            <li style="padding-top: 10PX;" class="float-left">
+                {{subModulo}} 
+            </li>
+        </ul>
+    </div>
+
+    <div class="background-ajustar" appTamanioVentana [pixeles]="100">
+
+    <div class="scrooll-design">
+        <div class="margen">
+            <div id="accordionFiltro">
+
+                <div id="accordion">
+                    <div class="card">
+                        <div>
+                            <h5 class="mb-0">
+                                <button *ngIf="tamanio < 600" (click)="changeIconDown = !changeIconDown"
+                                    style="width: 100%;" class="btn btn-link aparece-movil" data-toggle="collapse"
+                                    data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    <label class="titulo" style="    width: 80%;
+                float: left;
+                text-align: left;">BÚSQUEDA</label>
+
+                                </button>
+                                <button *ngIf="tamanio >=600" class="btn btn-link aparece-desktop-inline-block">
+                                    <label class="titulo">BÚSQUEDA</label>
+                                </button>
+
+                            </h5>
+                        </div>
+
+                        <div id="collapseOne" class="collapse" [ngClass]="{'show':tamanio >600}"
+                            aria-labelledby="headingOne" data-parent="#accordion">
+                            <div class="card-body">
+                                <div class="form group row margen">
+                                    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
+                                        <input type="text" appSolonumeros [(ngModel)]="idUsuario" id="idUsuarioS" class="form-control"
+                                            placeholder="Id usuario">
+                                    </div>
+                                    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
+                                        <input type="text" [(ngModel)]="nombre" id="nombreUsuario" formatos [especial]="true"
+                                            [control]="nombre" class="form-control" placeholder="Nombre">
+                                    </div>
+                                    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
+                                        <input type="text" [(ngModel)]="apellidoPat" id="apellidoPatUsuario" formatos [especial]="true"
+                                            [control]="apellidoPat" class="form-control" placeholder="Primer apellido">
+                                    </div>
+                                    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3 ">
+                                        <input type="text" [(ngModel)]="apellidoMat" id="apellidoMatUsaurio" formatos [especial]="true"
+                                            [control]="apellidoMat" class="form-control" placeholder="Segundo apellido">
+                                    </div>
+                                    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
+                                        <input type="Date" [(ngModel)]="fechaRegistro" id="fechaRegistroUsaurio" class="form-control"
+                                            placeholder="Fecha de registro">
+                                    </div>
+                                    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
+                                        <select name="" class="form-control" [(ngModel)]="id_company" id="id_companyUsuario">
+                                            <option  value="" selected>Razón social</option>
+                                            <option *ngFor="let item of arregloCompany" [value]="item.centrocClienteId">
+                                                {{item.razonSocial}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-4 col-xl-3">
+                                        <input type="email" [(ngModel)]="correoempresarial" id="correoempresarialUsuario" class="form-control"
+                                            placeholder="Correo empresarial">
+                                    </div>
+                                    <div class=" input-group-sm mb-3 col-12 col-sm-12 col-lg-4 col-xl-3">
+                                        <select class="form-control" id="activoUsuario" [(ngModel)]="activo">
+
+                                            <option  value="0" selected>Estatus</option>
+                                            <option  value="1">Activo</option>
+                                            <option  value="2">Inactivo</option>
+
+                                        </select>
+                                    </div>
+                                    <div class=" input-group-sm mb-3 text-right col-12 col-lg-2  col-xl-12 ">
+                                        <button type="button" class="btn btn-primary button-outlet " id="btnFiltrarUsuarios"
+                                            (click)="filtrar(true,true)">Filtrar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="row margen">
+            <div class="col titulo">
+                <label>RESULTADOS</label>
+            </div>
+            <div class="col text-right">
+                <button *ngIf="esRegistrar" type="button" style="width: 9em;" class="btn btn-light button-outlet"
+                    (click)="verdetalle(undefined)">
+                    <i aria-hidden="true" class="icon_24agregar primary-bg" *ngIf="!cargandoBotones"></i><span *ngIf="!cargandoBotones">Agregar</span>
+                    <div *ngIf="cargandoBotones" class="spinner-border" role="status">
+                        <span class="sr-only"></span>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <div *ngIf="activarMultiseleccion"  class="row text-right mr-3 margin botonmultiseleccion">
+            <div class="col-12">
+                <button type="button" class="btn btn-primary button-outlet mr-2"
+                    (click)="guardarMultiseleccion(false)">Desactivar</button>
+                <button (click)="guardarMultiseleccion(true)" type="button"
+                    class="btn heartbeathand btn-primary button-fill agrandarloading"><span>Activar</span>
+                </button>
+            </div>
+        </div>
+        
+        <div class="row margen margen-tabla background-panel ">
+            <app-tablapaginado [datos]="arreglotabla" [llave]="esEditar" [editar]="esEditar" [checkbox]="esEditar"
+                [cargando]="cargando" [paginado_server]="true" (salida)="recibirTabla($event)"></app-tablapaginado>
+        </div>
+    </div>    
+</div>

@@ -1,0 +1,123 @@
+<form [formGroup]="myForm" class="form-desing" (ngSubmit)="enviarPeticion()">
+
+    <input type="hidden" formControlName="conceptoPercepcionId">
+    <div class="background-panel margen background-ajustar" appTamanioVentana [pixeles]="235">
+        <br>
+        <div class="form-group row margen">
+            <label class="titulo">INFORMACIÓN DE LA PERCEPCIÓN</label>
+        </div>
+        <div class="form-group row margen">
+            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Nombre de la percepción *</label>
+                <input formControlName="nombre" maxlength="300" type="text" name="" class="form-control" [ngClass]="{'is-invalid':f.nombre.errors && submitInvalido}" placeholder="">
+                <div *ngIf="submitInvalido && f.nombre.errors" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Tipo de percepción *</label>
+                <select #tipoPercepcion (change)="validarPercepcion(tipoPercepcion.value)" formControlName="tipoPeriodicidad" name="" class="form-control" [ngClass]="{'is-invalid':f.tipoPeriodicidad.errors && submitInvalido}">
+                    <option value="A">Ambas</option>
+                    <option value="E">Estándar</option>
+                    <option value="P">Periódica</option>
+                </select>
+                
+                <div *ngIf="submitInvalido && f.tipoPeriodicidad.errors" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+            <div class=" input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Catálogo SAT *</label>
+                <input *ngIf="mensajePercepcion" formControlName="tipoPercepcionMensaje" class="form-control disabled bg-light" >
+                <input autocomplete="off" [ngClass]="{'is-invalid':f.tipoPercepcionId.errors && submitInvalido}" *ngIf="noMensajePercepcion" #tipoPercepcionId (focusout)="validarTipoConcepto(tipoPercepcionId.value)"
+                list="catalogoSAT" class="form-control" formControlName="tipoPercepcionId" name="browser" id="browser">
+                    
+                <datalist id="catalogoSAT">
+                    <option *ngFor="let item of arregloTipoPercepcion" [value]="item.descripcion"></option>
+                </datalist>
+                <div *ngIf="f.tipoPercepcionId.errors && submitInvalido" class="invalid-feedback">
+                    Campo requerido
+                </div>
+            </div>
+
+            <div *ngIf="ambasPeriodicidad" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6 ">
+                <label></label>
+                <label class="contenedorInputCheckRadio">Estándar
+                <input value="E" formControlName="periodicidadTipo" checked type="radio" name="periodicidadTipo" id="">
+                <span class="radiomark"></span>
+                </label>
+                <label class="contenedorInputCheckRadio">Periódica
+                <input value="P" formControlName="periodicidadTipo" type="radio" name="periodicidadTipo" id="">
+                <span class="radiomark"></span>
+            </label>
+
+
+            </div>
+            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Cuenta contable</label>
+                <input formControlName="cuentaContable" maxlength="100" appMayusculas type="text" class="form-control" id="cuentaContable" aria-describedby="cuentaContable" placeholder="">
+
+            </div>
+            <div class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Estatus</label>
+                <select name="" class="form-control" formControlName="esActivo">
+                    <option value="true">Activo</option>
+                    <option value="false">Inactivo</option>
+                </select>
+            </div>
+            <div  *ngIf="conAmbasPeriodicidad" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6"></div>
+            <div class="input-group-sm mb-3 col-6 col-sm-6 col-lg-6">
+                <label *ngIf="!cambioEstiloIsr" class="contenedorInputCheckRadio">Grava ISR
+                    <input formControlName="gravaIsr" type="checkbox" name="" id="gravaIsr">
+                    <span class="checkmark"></span>
+                </label>
+                <label *ngIf="cambioEstiloIsr" class="contenedorInputCheckRadio" style="color: rgb(174, 174, 174);">Grava ISR
+                    <input formControlName="gravaIsr" type="checkbox"  name="" id="gravaIsr">
+                    <span class="checkmark disabled bg-light"></span>
+                </label>
+
+                <label *ngIf="!cambioEstiloIsn" class="contenedorInputCheckRadio">Grava ISN
+                    <input formControlName="gravaIsn" type="checkbox" name="" id="gravaIsn">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label *ngIf="cambioEstiloIsn" class="contenedorInputCheckRadio" style="color: rgb(174, 174, 174);">Grava ISN
+                    <input formControlName="gravaIsn" type="checkbox" name="" id="gravaIsn">
+                    <span class="checkmark disabled bg-light"></span>
+                </label>
+
+                <label *ngIf="!cambioEstiloImss" class="contenedorInputCheckRadio">Integra IMSS
+                    <input formControlName="integraImss" type="checkbox" name="" id="integraImss">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label *ngIf="cambioEstiloImss" class="contenedorInputCheckRadio" style="color: rgb(174, 174, 174);">Integra IMSS
+                    <input formControlName="integraImss" type="checkbox" name="" id="integraImss">
+                    <span class="checkmark disabled bg-light"></span>
+                </label>
+
+            </div>
+
+            <div *ngIf="mostrartipoConcepto" class="input-group-sm mb-3 col-12 col-sm-6 col-lg-6">
+                <label>Tipo concepto:</label><br>
+
+                <label  class="contenedorInputCheckRadio "> Ordinario
+                    <input value="Ordinario" formControlName="tipoConcepto" type="radio" name="tipoConcepto">
+                    <span class="radiomark"></span>
+                </label>
+
+                <label class="contenedorInputCheckRadio "> Extraordinario
+                    <input value="Extraordinario" formControlName="tipoConcepto" type="radio" name="tipoConcepto">
+                    <span class="radiomark"></span>
+                </label>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="text-center margin" style="margin-bottom: 20px;">
+        <button type="button" class="btn btn-primary button-outlet mr-3" style="color:red" (click)="cancelar()">Cancelar</button>
+        <button type="submit" class="btn btn-primary button-fill agrandarloading">Guardar</button>
+    </div>
+
+</form>
